@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import './index.css';
 import 'typeface-roboto';
 import {
     Typography as Text,
@@ -11,7 +12,7 @@ const App = () => {
 
     return (
         <div>
-            <Text variant='h2' className={styles.test}>Hello world!</Text>
+            <Text variant='h4' className={styles.test}>Hello world!</Text>
             <Text color='primary'>Test</Text>
         </div>
     );
