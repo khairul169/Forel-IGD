@@ -11,20 +11,9 @@ import Button from '@material-ui/core/Button';
 import DataPasien from './DataPasien';
 import PenanggungJawab from './PenanggungJawab';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles({
   root: {
     padding: 16,
-  },
-  sectionTitle: {
-    color: theme.palette.primary.main,
-    backgroundColor: theme.palette.background.paper,
-    fontSize: '1.1em',
-    display: 'inline-block',
-    position: 'relative',
-    top: -12,
-    left: -8,
-    paddingLeft: 8,
-    paddingRight: 8,
   },
   section: {
     padding: 16,
@@ -38,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '1.2em',
     marginBottom: 24,
   },
-}));
+});
 
 const DaftarBaru = () => {
   const styles = useStyles();

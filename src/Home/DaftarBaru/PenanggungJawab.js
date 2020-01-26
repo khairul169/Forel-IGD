@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 
 // Components
-import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Panel from '../../Components/Panel';
 import UserInput from './UserInput';
 
 const PenanggungJawab = ({ styles, onValueChange }) => {
@@ -36,9 +35,7 @@ const PenanggungJawab = ({ styles, onValueChange }) => {
   };
 
   return (
-    <Paper variant="outlined" className={styles.section}>
-      <Typography className={styles.sectionTitle}>Data Penanggung Jawab</Typography>
-
+    <Panel title="Data Penanggung Jawab" className={styles.section}>
       <UserInput title="Nama">
         <TextField fullWidth size="small" variant="outlined" value={data.nama} onChange={(e) => setValue({ nama: e.target.value })} />
       </UserInput>
@@ -126,7 +123,7 @@ const PenanggungJawab = ({ styles, onValueChange }) => {
       <UserInput title="Telp/HP">
         <TextField fullWidth size="small" variant="outlined" value={data.telpWali} onChange={(e) => setValue({ telpWali: e.target.value })} />
       </UserInput>
-    </Paper>
+    </Panel>
   );
 };
 
