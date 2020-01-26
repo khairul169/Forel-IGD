@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { Link as RouteLink, Redirect } from 'react-router-dom';
 
@@ -18,6 +19,9 @@ import HomeIcon from '@material-ui/icons/Home';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 
+// Etc
+import Actions from '../Redux/Actions';
+
 export const DrawerWidth = 270;
 
 const useStyles = makeStyles((theme) => ({
@@ -36,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Drawer = () => {
+const Drawer = ({ setAuthToken }) => {
   const styles = useStyles();
   const [collapsedMenu, setCollapedMenu] = useState(0);
   const [redirectLogin, setRedirectLogin] = useState(false);
@@ -130,6 +134,7 @@ const Drawer = () => {
           button
           onClick={() => {
             sessionStorage.clear();
+            setAuthToken(null);
             setRedirectLogin(true);
           }}
         >
@@ -142,4 +147,13 @@ const Drawer = () => {
   );
 };
 
-export default Drawer;
+
+const mapStateToProps = ({ userData }) => ({
+  userData,
+});
+
+const mapDispatchToProps = {
+  setAuthToken: Actions.setAuthToken,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Drawer);
