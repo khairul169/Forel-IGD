@@ -101,11 +101,11 @@ const AppNavigation = () => {
         <Collapse in={collapsedMenu === 1}>
           <List disablePadding>
             <ListItem dense button component={RouteLink} to="/daftar-baru">
-              <ListItemIcon />
+              <ListItemIcon><div /></ListItemIcon>
               <ListItemText>Daftar Baru</ListItemText>
             </ListItem>
             <ListItem dense button component={RouteLink} to="/daftar-lama">
-              <ListItemIcon />
+              <ListItemIcon><div /></ListItemIcon>
               <ListItemText>Pasien Lama</ListItemText>
             </ListItem>
           </List>
@@ -119,11 +119,11 @@ const AppNavigation = () => {
         <Collapse in={collapsedMenu === 2}>
           <List disablePadding>
             <ListItem dense button component={RouteLink} to="/pasien-ponek">
-              <ListItemIcon />
+              <ListItemIcon><div /></ListItemIcon>
               <ListItemText>Ponek</ListItemText>
             </ListItem>
             <ListItem dense button component={RouteLink} to="/pasien-non-ponek">
-              <ListItemIcon />
+              <ListItemIcon><div /></ListItemIcon>
               <ListItemText>Non Ponek</ListItemText>
             </ListItem>
           </List>
@@ -137,15 +137,15 @@ const AppNavigation = () => {
         <Collapse in={collapsedMenu === 3}>
           <List disablePadding>
             <ListItem dense button component={RouteLink} to="/pengkajian">
-              <ListItemIcon />
+              <ListItemIcon><div /></ListItemIcon>
               <ListItemText>Pengkajian Medis</ListItemText>
             </ListItem>
             <ListItem dense button component={RouteLink} to="/ringkasan">
-              <ListItemIcon />
+              <ListItemIcon><div /></ListItemIcon>
               <ListItemText>Ringkasan Pasien</ListItemText>
             </ListItem>
             <ListItem dense button component={RouteLink} to="/rtl">
-              <ListItemIcon />
+              <ListItemIcon><div /></ListItemIcon>
               <ListItemText>Rencana Tindak Lanjut</ListItemText>
             </ListItem>
           </List>
