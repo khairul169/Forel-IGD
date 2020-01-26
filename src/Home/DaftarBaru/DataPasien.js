@@ -30,7 +30,7 @@ const SectionDataPasien = ({ styles, onValueChange }) => {
     perkawinan: '0',
     pekerjaan: '0',
     pendidikan: '0',
-    jenisPasien: '0',
+    jenis: '0',
   });
 
   const setValue = (state) => {
