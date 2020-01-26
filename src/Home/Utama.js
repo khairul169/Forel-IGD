@@ -98,7 +98,7 @@ const Utama = () => {
               <Typography align="center" className={styles.date}>
                 {date.format('dddd, Do MMMM YYYY')}
               </Typography>
-              <Typography variant="h1" align="center">{date.format('h:mm')}</Typography>
+              <Typography variant="h1" align="center">{date.format('HH:mm')}</Typography>
             </div>
             )}
           </Paper>
