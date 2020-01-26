@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
-import {
-  Grid,
-  TextField,
-  Typography,
-  Button,
-  Link,
-} from '@material-ui/core';
-import {
-  AccountCircle, LockOutlined,
-} from '@material-ui/icons';
 import { Link as RouterLink, Redirect } from 'react-router-dom';
+
+// Components
+import Grid from '@material-ui/core/Grid';
+import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import Link from '@material-ui/core/Link';
+
+// Icons
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import LockOutlined from '@material-ui/icons/LockOutlined';
+
+// Assets
 import lockIcon from '../Images/lock.png';
 
 const Login = () => {

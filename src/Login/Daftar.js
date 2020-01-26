@@ -1,17 +1,23 @@
 import React from 'react';
-import {
-  Grid,
-  TextField,
-  Typography,
-  Button,
-  Link,
-  Select,
-  MenuItem,
-} from '@material-ui/core';
-import {
-  PermContactCalendar, AccountCircle, LockOutlined, Email, HowToReg,
-} from '@material-ui/icons';
 import { Link as RouterLink } from 'react-router-dom';
+
+// Components
+import Grid from '@material-ui/core/Grid';
+import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import Link from '@material-ui/core/Link';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+
+// Icons
+import PermContactCalendar from '@material-ui/icons/PermContactCalendar';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import LockOutlined from '@material-ui/icons/LockOutlined';
+import Email from '@material-ui/icons/Email';
+import HowToReg from '@material-ui/icons/HowToReg';
+
+// Assets
 import lockIcon from '../Images/lock.png';
 
 const Daftar = () => (

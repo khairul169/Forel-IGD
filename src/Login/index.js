@@ -1,10 +1,8 @@
 import React from 'react';
-import {
-  makeStyles,
-  Grid,
-  Hidden,
-  Paper,
-} from '@material-ui/core';
+import makeStyles from '@material-ui/core/styles/makeStyles';
+import Grid from '@material-ui/core/Grid';
+import Hidden from '@material-ui/core/Hidden';
+import Paper from '@material-ui/core/Paper';
 import { Switch, Route } from 'react-router-dom';
 import Main from './Main';
 import Masuk from './Masuk';
