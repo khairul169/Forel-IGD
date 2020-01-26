@@ -17,12 +17,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Panel = ({ className, children }) => {
+const Panel = ({ className, children, title }) => {
   const styles = useStyles();
 
   return (
     <Paper variant="outlined" className={className}>
-      <Typography className={styles.title}>Data Pasien</Typography>
+      <Typography className={styles.title}>{title}</Typography>
       {children}
     </Paper>
   );
