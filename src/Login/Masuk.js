@@ -20,7 +20,7 @@ const Login = () => {
 
   return (
     <div>
-      {authStatus && <Redirect to="/home" />}
+      {authStatus && <Redirect to="/" />}
       <Grid container alignItems="center" justify="center">
         <img alt="Lock" src={lockIcon} width={48} />
         <Typography component="h1" variant="h5" style={{ marginTop: 6, marginLeft: 16 }}>Masuk</Typography>

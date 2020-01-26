@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import makeStyles from '@material-ui/core/styles/makeStyles';
+import { Switch, Route, Link as RouteLink } from 'react-router-dom';
 
 // Components
 import Typography from '@material-ui/core/Typography';
@@ -20,6 +21,10 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import HomeIcon from '@material-ui/icons/Home';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import ExpandLess from '@material-ui/icons/ExpandLess';
+
+// Routes
+import Routes from './Routes';
+import NotFound from './NotFound';
 
 const sidebarWidth = 270;
 
@@ -80,9 +85,9 @@ const AppNavigation = () => {
       </div>
       <Divider />
       <List subheader={<ListSubheader>Navigasi</ListSubheader>}>
-        <ListItem dense button>
+        <ListItem button component={RouteLink} to="/utama">
           <ListItemIcon><HomeIcon /></ListItemIcon>
-          <ListItemText>Halaman</ListItemText>
+          <ListItemText>Halaman Utama</ListItemText>
         </ListItem>
       </List>
 
@@ -95,11 +100,11 @@ const AppNavigation = () => {
         </ListItem>
         <Collapse in={collapsedMenu === 1}>
           <List disablePadding>
-            <ListItem dense button>
+            <ListItem dense button component={RouteLink} to="/daftar-baru">
               <ListItemIcon />
               <ListItemText>Daftar Baru</ListItemText>
             </ListItem>
-            <ListItem dense button>
+            <ListItem dense button component={RouteLink} to="/daftar-lama">
               <ListItemIcon />
               <ListItemText>Pasien Lama</ListItemText>
             </ListItem>
@@ -113,11 +118,11 @@ const AppNavigation = () => {
         </ListItem>
         <Collapse in={collapsedMenu === 2}>
           <List disablePadding>
-            <ListItem dense button>
+            <ListItem dense button component={RouteLink} to="/pasien-ponek">
               <ListItemIcon />
               <ListItemText>Ponek</ListItemText>
             </ListItem>
-            <ListItem dense button>
+            <ListItem dense button component={RouteLink} to="/pasien-non-ponek">
               <ListItemIcon />
               <ListItemText>Non Ponek</ListItemText>
             </ListItem>
@@ -131,15 +136,15 @@ const AppNavigation = () => {
         </ListItem>
         <Collapse in={collapsedMenu === 3}>
           <List disablePadding>
-            <ListItem dense button>
+            <ListItem dense button component={RouteLink} to="/pengkajian">
               <ListItemIcon />
               <ListItemText>Pengkajian Medis</ListItemText>
             </ListItem>
-            <ListItem dense button>
+            <ListItem dense button component={RouteLink} to="/ringkasan">
               <ListItemIcon />
               <ListItemText>Ringkasan Pasien</ListItemText>
             </ListItem>
-            <ListItem dense button>
+            <ListItem dense button component={RouteLink} to="/rtl">
               <ListItemIcon />
               <ListItemText>Rencana Tindak Lanjut</ListItemText>
             </ListItem>
@@ -150,7 +155,7 @@ const AppNavigation = () => {
       <div style={{ flex: 1 }} />
       <Divider />
       <List>
-        <ListItem dense button>
+        <ListItem button component={RouteLink} to="/logout">
           <ListItemIcon><HomeIcon /></ListItemIcon>
           <ListItemText>Keluar</ListItemText>
         </ListItem>
@@ -159,13 +164,35 @@ const AppNavigation = () => {
   );
 };
 
+const HeaderTitle = () => (
+  <Switch>
+    {Routes.map((item, index) => (
+      <Route path={item.path} exact={item.exact} key={index}>
+        <Typography variant="h6">{item.title}</Typography>
+      </Route>
+    ))}
+    <Typography variant="h6">Formulir Elektronik IGD RSIA Puri</Typography>
+  </Switch>
+);
+
+const Content = () => (
+  <Switch>
+    {Routes.map((item, index) => (
+      <Route path={item.path} exact={item.exact} key={index}>
+        {item.content}
+      </Route>
+    ))}
+    <NotFound />
+  </Switch>
+);
+
 const Home = () => {
   const styles = useStyles();
   return (
     <div className={styles.root}>
       <AppBar position="fixed" className={styles.appBar}>
         <Toolbar>
-          <Typography variant="h6">Halaman Utama</Typography>
+          <HeaderTitle />
           <div className={styles.appBarSearch} />
           <Typography className={styles.appBarUserName}>Ns. Khairul Hidayat, S.Tr.Kep</Typography>
           <IconButton color="inherit">
@@ -177,18 +204,7 @@ const Home = () => {
 
       <main className={styles.content}>
         <div className={styles.toolbar} />
-        <Typography paragraph>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-          ut labore et dolore magna aliqua. Rhoncus dolor purus non enim praesent elementum
-          facilisis leo vel. Risus at ultrices mi tempus imperdiet. Semper risus in hendrerit
-          gravida rutrum quisque non tellus. Convallis convallis tellus id interdum velit laoreet id
-          donec ultrices. Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
-          adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra nibh cras.
-          Metus vulputate eu scelerisque felis imperdiet proin fermentum leo. Mauris commodo quis
-          imperdiet massa tincidunt. Cras tincidunt lobortis feugiat vivamus at augue. At augue eget
-          arcu dictum varius duis at consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem
-          donec massa sapien faucibus et molestie ac.
-        </Typography>
+        <Content />
       </main>
     </div>
   );
