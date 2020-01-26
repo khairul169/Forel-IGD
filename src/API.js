@@ -45,6 +45,15 @@ const login = async (userId, pin) => {
   }
 };
 
+const register = async (data) => {
+  try {
+    const { result } = await post('/register', data);
+    return result.token;
+  } catch (error) {
+    return false;
+  }
+};
+
 const getUser = async () => {
   const user = await get('/user');
   return user;
@@ -52,5 +61,6 @@ const getUser = async () => {
 
 export default {
   login,
+  register,
   getUser,
 };
