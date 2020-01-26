@@ -4,6 +4,7 @@ import React from 'react';
 import Utama from './Utama';
 import DaftarBaru from './DaftarBaru';
 import DaftarLama from './DaftarLama';
+import Pengkajian from './Pengkajian';
 
 const routeList = [
   {
@@ -26,6 +27,11 @@ const routeList = [
     title: 'Pendaftaran Pasien Lama',
     path: '/daftar-lama',
     content: <DaftarLama />,
+  },
+  {
+    title: 'Pemeriksaan Dokter',
+    path: '/pengkajian',
+    content: <Pengkajian />,
   },
 ];
 
