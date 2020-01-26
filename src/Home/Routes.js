@@ -3,6 +3,7 @@ import React from 'react';
 // Routes
 import Utama from './Utama';
 import DaftarBaru from './DaftarBaru';
+import DaftarLama from './DaftarLama';
 
 const routeList = [
   {
@@ -20,6 +21,11 @@ const routeList = [
     title: 'Pendaftaran Pasien Baru',
     path: '/daftar-baru',
     content: <DaftarBaru />,
+  },
+  {
+    title: 'Pendaftaran Pasien Lama',
+    path: '/daftar-lama',
+    content: <DaftarLama />,
   },
 ];
 
