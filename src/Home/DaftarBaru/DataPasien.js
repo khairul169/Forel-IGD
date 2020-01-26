@@ -6,7 +6,7 @@ import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Panel from '../../Components/Panel';
-import UserInput from './UserInput';
+import UserInput from '../../Components/UserInput';
 
 const SectionDataPasien = ({ styles, onValueChange }) => {
   const jenisKelamin = ['Laki-laki', 'Perempuan'];
