@@ -18,9 +18,14 @@ const SectionDataPasien = ({ styles, onValueChange }) => {
   const pendidikan = ['Tidak Sekolah', 'SD', 'SMP', 'SMA', 'Perguruan Tinggi'];
   const jenisPasien = ['Ponek', 'Non Ponek'];
 
-  const [inputData, setInputData] = useState({
+  const [data, setData] = useState({
+    nama: '',
+    nik: '',
     kelamin: '0',
+    ttl: '',
     kebangsaan: '0',
+    alamat: '',
+    telp: '',
     agama: '0',
     perkawinan: '0',
     pekerjaan: '0',
@@ -28,11 +33,11 @@ const SectionDataPasien = ({ styles, onValueChange }) => {
     jenisPasien: '0',
   });
 
-  const setDataValue = (state) => {
-    setInputData({ ...inputData, ...state });
+  const setValue = (state) => {
+    setData({ ...data, ...state });
 
     if (typeof onValueChange === 'function') {
-      onValueChange(inputData);
+      onValueChange(data);
     }
   };
 
@@ -41,19 +46,19 @@ const SectionDataPasien = ({ styles, onValueChange }) => {
       <Typography className={styles.sectionTitle}>Data Pasien</Typography>
 
       <UserInput title="Nama">
-        <TextField fullWidth size="small" variant="outlined" />
+        <TextField fullWidth size="small" variant="outlined" value={data.nama} onChange={(e) => setValue({ nama: e.target.value })} />
       </UserInput>
 
       <UserInput title="NIK/Nomor Passport">
-        <TextField fullWidth size="small" variant="outlined" />
+        <TextField fullWidth size="small" variant="outlined" value={data.nik} onChange={(e) => setValue({ nik: e.target.value })} />
       </UserInput>
 
       <UserInput title="Jenis Kelamin">
         <RadioGroup
           row
-          value={inputData.kelamin}
+          value={data.kelamin}
           onChange={(e) => {
-            setDataValue({ kelamin: e.target.value });
+            setValue({ kelamin: e.target.value });
           }}
         >
           {jenisKelamin.map((item, index) => (
@@ -69,15 +74,15 @@ const SectionDataPasien = ({ styles, onValueChange }) => {
       </UserInput>
 
       <UserInput title="Tempat/Tanggal Lahir">
-        <TextField fullWidth size="small" variant="outlined" />
+        <TextField fullWidth size="small" variant="outlined" value={data.ttl} onChange={(e) => setValue({ ttl: e.target.value })} />
       </UserInput>
 
       <UserInput title="Kebangsaan">
         <RadioGroup
           row
-          value={inputData.kebangsaan}
+          value={data.kebangsaan}
           onChange={(e) => {
-            setDataValue({ kebangsaan: e.target.value });
+            setValue({ kebangsaan: e.target.value });
           }}
         >
           {kebangsaan.map((item, index) => (
@@ -93,19 +98,27 @@ const SectionDataPasien = ({ styles, onValueChange }) => {
       </UserInput>
 
       <UserInput title="Alamat">
-        <TextField fullWidth size="small" variant="outlined" multiline rows={3} />
+        <TextField
+          fullWidth
+          multiline
+          rows={3}
+          size="small"
+          variant="outlined"
+          value={data.alamat}
+          onChange={(e) => setValue({ alamat: e.target.value })}
+        />
       </UserInput>
 
       <UserInput title="Telp/HP">
-        <TextField fullWidth size="small" variant="outlined" />
+        <TextField fullWidth size="small" variant="outlined" value={data.telp} onChange={(e) => setValue({ telp: e.target.value })} />
       </UserInput>
 
       <UserInput title="Agama">
         <RadioGroup
           row
-          value={inputData.agama}
+          value={data.agama}
           onChange={(e) => {
-            setDataValue({ agama: e.target.value });
+            setValue({ agama: e.target.value });
           }}
         >
           {agama.map((item, index) => (
@@ -123,9 +136,9 @@ const SectionDataPasien = ({ styles, onValueChange }) => {
       <UserInput title="Status Perkawinan">
         <RadioGroup
           row
-          value={inputData.perkawinan}
+          value={data.perkawinan}
           onChange={(e) => {
-            setDataValue({ perkawinan: e.target.value });
+            setValue({ perkawinan: e.target.value });
           }}
         >
           {perkawinan.map((item, index) => (
@@ -143,9 +156,9 @@ const SectionDataPasien = ({ styles, onValueChange }) => {
       <UserInput title="Pekerjaan">
         <RadioGroup
           row
-          value={inputData.pekerjaan}
+          value={data.pekerjaan}
           onChange={(e) => {
-            setDataValue({ pekerjaan: e.target.value });
+            setValue({ pekerjaan: e.target.value });
           }}
         >
           {pekerjaan.map((item, index) => (
@@ -163,9 +176,9 @@ const SectionDataPasien = ({ styles, onValueChange }) => {
       <UserInput title="Pendidikan">
         <RadioGroup
           row
-          value={inputData.pendidikan}
+          value={data.pendidikan}
           onChange={(e) => {
-            setDataValue({ pendidikan: e.target.value });
+            setValue({ pendidikan: e.target.value });
           }}
         >
           {pendidikan.map((item, index) => (
@@ -183,9 +196,9 @@ const SectionDataPasien = ({ styles, onValueChange }) => {
       <UserInput title="Jenis Pasien">
         <RadioGroup
           row
-          value={inputData.jenis}
+          value={data.jenis}
           onChange={(e) => {
-            setDataValue({ jenis: e.target.value });
+            setValue({ jenis: e.target.value });
           }}
         >
           {jenisPasien.map((item, index) => (
