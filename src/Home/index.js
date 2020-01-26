@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
 import makeStyles from '@material-ui/core/styles/makeStyles';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
 // Components
 import Typography from '@material-ui/core/Typography';
@@ -10,11 +11,12 @@ import IconButton from '@material-ui/core/IconButton';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import Drawer, { DrawerWidth } from './Drawer';
 
-// Icons
-
 // Routes
 import Routes from './Routes';
 import NotFound from './NotFound';
+
+// Actions
+import Actions from '../Redux/Actions';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -63,15 +65,35 @@ const Content = () => (
   </Switch>
 );
 
-const Home = () => {
+const Home = ({ userData, setAuthToken, setUserData }) => {
   const styles = useStyles();
+  const [redirectLogin, setRedirectLogin] = useState(false);
+
+  const onLoad = () => {
+    // Get user token from session
+    const token = sessionStorage.getItem('AUTH_TOKEN');
+
+    // Fetch user data
+    if (token) {
+      setAuthToken(token);
+      setUserData({
+        nama: 'Ns. Khairul Hidayat, S.Tr.Kep',
+      });
+    } else {
+      setRedirectLogin(true);
+    }
+  };
+
+  useEffect(onLoad, []);
+
   return (
     <div className={styles.root}>
+      {redirectLogin && <Redirect to="/login" />}
       <AppBar position="fixed" className={styles.appBar}>
         <Toolbar>
           <HeaderTitle />
           <div className={styles.appBarSearch} />
-          <Typography className={styles.appBarUserName}>Ns. Khairul Hidayat, S.Tr.Kep</Typography>
+          <Typography className={styles.appBarUserName}>{userData && userData.nama}</Typography>
           <IconButton color="inherit">
             <AccountCircle />
           </IconButton>
@@ -87,4 +109,14 @@ const Home = () => {
   );
 };
 
-export default Home;
+const mapStateToProps = ({ userData }) => ({
+  userData,
+});
+
+const mapDispatchToProps = {
+  setAuthToken: Actions.setAuthToken,
+  setUserData: Actions.setUserData,
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

@@ -16,11 +16,16 @@ import LockOutlined from '@material-ui/icons/LockOutlined';
 import lockIcon from '../Images/lock.png';
 
 const Login = () => {
-  const [authStatus, setAuthStatus] = useState(false);
+  const [authenticated, setAuthenticated] = useState(false);
+
+  const tryLogin = () => {
+    sessionStorage.setItem('AUTH_TOKEN', 'testjajaja');
+    setAuthenticated(true);
+  };
 
   return (
     <div>
-      {authStatus && <Redirect to="/" />}
+      {authenticated && <Redirect to="/" />}
       <Grid container alignItems="center" justify="center">
         <img alt="Lock" src={lockIcon} width={48} />
         <Typography component="h1" variant="h5" style={{ marginTop: 6, marginLeft: 16 }}>Masuk</Typography>
@@ -52,9 +57,7 @@ const Login = () => {
 
       <Grid container justify="center" style={{ marginTop: 48 }}>
         <Button
-          onClick={() => {
-            setAuthStatus(true);
-          }}
+          onClick={tryLogin}
           fullWidth
           color="primary"
           variant="contained"
@@ -79,5 +82,6 @@ const Login = () => {
     </div>
   );
 };
+
 
 export default Login;

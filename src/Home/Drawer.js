@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import makeStyles from '@material-ui/core/styles/makeStyles';
-import { Link as RouteLink } from 'react-router-dom';
+import { Link as RouteLink, Redirect } from 'react-router-dom';
 
 // Components
 import Typography from '@material-ui/core/Typography';
@@ -39,6 +39,7 @@ const useStyles = makeStyles((theme) => ({
 const Drawer = () => {
   const styles = useStyles();
   const [collapsedMenu, setCollapedMenu] = useState(0);
+  const [redirectLogin, setRedirectLogin] = useState(false);
 
   const toggleMenu = (id) => {
     if (id === collapsedMenu) {
@@ -125,11 +126,18 @@ const Drawer = () => {
       <div style={{ flex: 1 }} />
       <Divider />
       <List>
-        <ListItem button component={RouteLink} to="/logout">
+        <ListItem
+          button
+          onClick={() => {
+            sessionStorage.clear();
+            setRedirectLogin(true);
+          }}
+        >
           <ListItemIcon><HomeIcon /></ListItemIcon>
           <ListItemText>Keluar</ListItemText>
         </ListItem>
       </List>
+      {redirectLogin && <Redirect to="/login" />}
     </MaterialDrawer>
   );
 };
