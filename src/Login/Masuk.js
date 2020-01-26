@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import { Link as RouterLink, Redirect } from 'react-router-dom';
 
 // Components
@@ -12,20 +13,26 @@ import Link from '@material-ui/core/Link';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import LockOutlined from '@material-ui/icons/LockOutlined';
 
-// Assets
+// Etc
 import lockIcon from '../Images/lock.png';
+import API from '../API';
+import Actions from '../Redux/Actions';
 
-const Login = () => {
-  const [authenticated, setAuthenticated] = useState(false);
+const Login = ({ authToken, setAuthToken }) => {
+  const [userId, setUserId] = useState('');
+  const [pin, setPin] = useState('');
 
-  const tryLogin = () => {
-    sessionStorage.setItem('AUTH_TOKEN', 'testjajaja');
-    setAuthenticated(true);
+  const tryLogin = async () => {
+    const token = await API.login(userId, pin);
+    if (token) {
+      sessionStorage.setItem('AUTH_TOKEN', token);
+      setAuthToken(token);
+    }
   };
 
   return (
     <div>
-      {authenticated && <Redirect to="/" />}
+      {authToken && <Redirect to="/" />}
       <Grid container alignItems="center" justify="center">
         <img alt="Lock" src={lockIcon} width={48} />
         <Typography component="h1" variant="h5" style={{ marginTop: 6, marginLeft: 16 }}>Masuk</Typography>
@@ -39,6 +46,8 @@ const Login = () => {
           <TextField
             fullWidth
             label="ID Pengguna"
+            value={userId}
+            onChange={(e) => setUserId(e.target.value)}
           />
         </Grid>
       </Grid>
@@ -51,6 +60,8 @@ const Login = () => {
           <TextField
             fullWidth
             label="PIN"
+            value={pin}
+            onChange={(e) => setPin(e.target.value)}
           />
         </Grid>
       </Grid>
@@ -83,5 +94,13 @@ const Login = () => {
   );
 };
 
+const mapStateToProps = ({ authToken }) => ({
+  authToken,
+});
 
-export default Login;
+const mapDispatchToProps = {
+  setAuthToken: Actions.setAuthToken,
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

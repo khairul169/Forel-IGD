@@ -17,6 +17,7 @@ import NotFound from './NotFound';
 
 // Actions
 import Actions from '../Redux/Actions';
+import API from '../API';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -69,19 +70,32 @@ const Home = ({ userData, setAuthToken, setUserData }) => {
   const styles = useStyles();
   const [redirectLogin, setRedirectLogin] = useState(false);
 
-  const onLoad = () => {
-    // Get user token from session
-    const token = sessionStorage.getItem('AUTH_TOKEN');
+  const fetchToken = async () => {
+    try {
+      // Get user token from session
+      const token = sessionStorage.getItem('AUTH_TOKEN');
 
-    // Fetch user data
-    if (token) {
+      // Fetch user data
+      if (!token || token.error) {
+        throw new Error();
+      }
+
       setAuthToken(token);
-      setUserData({
-        nama: 'Ns. Khairul Hidayat, S.Tr.Kep',
-      });
-    } else {
+      const user = await API.getUser();
+
+      if (!user || user.error) {
+        throw new Error();
+      }
+
+      setUserData(user.result);
+    } catch (error) {
+      sessionStorage.clear();
       setRedirectLogin(true);
     }
+  };
+
+  const onLoad = () => {
+    fetchToken();
   };
 
   useEffect(onLoad, []);

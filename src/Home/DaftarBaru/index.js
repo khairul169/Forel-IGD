@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
 // Components
@@ -29,7 +30,7 @@ const useStyles = makeStyles({
   },
 });
 
-const DaftarBaru = () => {
+const DaftarBaru = ({ userData }) => {
   const styles = useStyles();
 
   return (
@@ -54,7 +55,7 @@ const DaftarBaru = () => {
         </Grid>
         <Grid item xs={5}>
           <Typography variant="h6" gutterBottom align="center" className={styles.namaRegistrar}>
-            Ns. Khairul Hidayat, S.Tr.Kep
+            {userData && userData.nama}
           </Typography>
           <Grid container spacing={2}>
             <Grid item xs>
@@ -70,4 +71,8 @@ const DaftarBaru = () => {
   );
 };
 
-export default DaftarBaru;
+const mapStateToProps = ({ userData }) => ({
+  userData,
+});
+
+export default connect(mapStateToProps)(DaftarBaru);
