@@ -59,8 +59,18 @@ const getUser = async () => {
   return user;
 };
 
+const pasienBaru = async (data) => {
+  try {
+    const response = await post('/pasien_baru', data);
+    return response;
+  } catch (error) {
+    return false;
+  }
+};
+
 export default {
   login,
   register,
   getUser,
+  pasienBaru,
 };

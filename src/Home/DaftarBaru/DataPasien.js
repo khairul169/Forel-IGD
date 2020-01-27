@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 // Components
 import TextField from '@material-ui/core/TextField';
@@ -8,7 +8,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Panel from '../../Components/Panel';
 import UserInput from '../../Components/UserInput';
 
-const SectionDataPasien = ({ styles, onValueChange }) => {
+const DataPasien = ({ styles, register }) => {
   const jenisKelamin = ['Laki-laki', 'Perempuan'];
   const kebangsaan = ['Indonesia', 'WNA'];
   const agama = ['Islam', 'Kristen', 'Katolik', 'Hindu', 'Buddha', 'Konghucu', 'Lain-lain'];
@@ -17,52 +17,27 @@ const SectionDataPasien = ({ styles, onValueChange }) => {
   const pendidikan = ['Tidak Sekolah', 'SD', 'SMP', 'SMA', 'Perguruan Tinggi'];
   const jenisPasien = ['Ponek', 'Non Ponek'];
 
-  const [data, setData] = useState({
-    nama: '',
-    nik: '',
-    kelamin: '0',
-    ttl: '',
-    kebangsaan: '0',
-    alamat: '',
-    telp: '',
-    agama: '0',
-    perkawinan: '0',
-    pekerjaan: '0',
-    pendidikan: '0',
-    jenis: '0',
-  });
-
-  const setValue = (state) => {
-    setData({ ...data, ...state });
-
-    if (typeof onValueChange === 'function') {
-      onValueChange(data);
-    }
-  };
-
   return (
     <Panel title="Data Pasien" className={styles.section}>
+      <UserInput title="No. RM">
+        <TextField fullWidth size="small" variant="outlined" name="rm" inputRef={register} />
+      </UserInput>
+
       <UserInput title="Nama">
-        <TextField fullWidth size="small" variant="outlined" value={data.nama} onChange={(e) => setValue({ nama: e.target.value })} />
+        <TextField fullWidth size="small" variant="outlined" name="nama" inputRef={register} />
       </UserInput>
 
       <UserInput title="NIK/Nomor Passport">
-        <TextField fullWidth size="small" variant="outlined" value={data.nik} onChange={(e) => setValue({ nik: e.target.value })} />
+        <TextField fullWidth size="small" variant="outlined" name="nik" inputRef={register} />
       </UserInput>
 
       <UserInput title="Jenis Kelamin">
-        <RadioGroup
-          row
-          value={data.kelamin}
-          onChange={(e) => {
-            setValue({ kelamin: e.target.value });
-          }}
-        >
+        <RadioGroup row defaultValue="0">
           {jenisKelamin.map((item, index) => (
             <FormControlLabel
               key={index}
               value={index.toString()}
-              control={<Radio color="primary" />}
+              control={<Radio color="primary" name="kelamin" inputRef={register} />}
               label={item}
               labelPlacement="end"
             />
@@ -71,22 +46,16 @@ const SectionDataPasien = ({ styles, onValueChange }) => {
       </UserInput>
 
       <UserInput title="Tempat/Tanggal Lahir">
-        <TextField fullWidth size="small" variant="outlined" value={data.ttl} onChange={(e) => setValue({ ttl: e.target.value })} />
+        <TextField fullWidth size="small" variant="outlined" name="ttl" inputRef={register} />
       </UserInput>
 
       <UserInput title="Kebangsaan">
-        <RadioGroup
-          row
-          value={data.kebangsaan}
-          onChange={(e) => {
-            setValue({ kebangsaan: e.target.value });
-          }}
-        >
+        <RadioGroup row defaultValue="0">
           {kebangsaan.map((item, index) => (
             <FormControlLabel
               key={index}
               value={index.toString()}
-              control={<Radio color="primary" />}
+              control={<Radio color="primary" name="kebangsaan" inputRef={register} />}
               label={item}
               labelPlacement="end"
             />
@@ -101,28 +70,22 @@ const SectionDataPasien = ({ styles, onValueChange }) => {
           rows={3}
           size="small"
           variant="outlined"
-          value={data.alamat}
-          onChange={(e) => setValue({ alamat: e.target.value })}
+          name="alamat"
+          inputRef={register}
         />
       </UserInput>
 
       <UserInput title="Telp/HP">
-        <TextField fullWidth size="small" variant="outlined" value={data.telp} onChange={(e) => setValue({ telp: e.target.value })} />
+        <TextField fullWidth size="small" variant="outlined" name="telp" inputRef={register} />
       </UserInput>
 
       <UserInput title="Agama">
-        <RadioGroup
-          row
-          value={data.agama}
-          onChange={(e) => {
-            setValue({ agama: e.target.value });
-          }}
-        >
+        <RadioGroup row defaultValue="0">
           {agama.map((item, index) => (
             <FormControlLabel
               key={index}
               value={index.toString()}
-              control={<Radio color="primary" />}
+              control={<Radio color="primary" name="agama" inputRef={register} />}
               label={item}
               labelPlacement="end"
             />
@@ -131,18 +94,12 @@ const SectionDataPasien = ({ styles, onValueChange }) => {
       </UserInput>
 
       <UserInput title="Status Perkawinan">
-        <RadioGroup
-          row
-          value={data.perkawinan}
-          onChange={(e) => {
-            setValue({ perkawinan: e.target.value });
-          }}
-        >
+        <RadioGroup row defaultValue="0">
           {perkawinan.map((item, index) => (
             <FormControlLabel
               key={index}
               value={index.toString()}
-              control={<Radio color="primary" />}
+              control={<Radio color="primary" name="perkawinan" inputRef={register} />}
               label={item}
               labelPlacement="end"
             />
@@ -151,18 +108,12 @@ const SectionDataPasien = ({ styles, onValueChange }) => {
       </UserInput>
 
       <UserInput title="Pekerjaan">
-        <RadioGroup
-          row
-          value={data.pekerjaan}
-          onChange={(e) => {
-            setValue({ pekerjaan: e.target.value });
-          }}
-        >
+        <RadioGroup row defaultValue="0">
           {pekerjaan.map((item, index) => (
             <FormControlLabel
               key={index}
               value={index.toString()}
-              control={<Radio color="primary" />}
+              control={<Radio color="primary" name="pekerjaan" inputRef={register} />}
               label={item}
               labelPlacement="end"
             />
@@ -171,18 +122,12 @@ const SectionDataPasien = ({ styles, onValueChange }) => {
       </UserInput>
 
       <UserInput title="Pendidikan">
-        <RadioGroup
-          row
-          value={data.pendidikan}
-          onChange={(e) => {
-            setValue({ pendidikan: e.target.value });
-          }}
-        >
+        <RadioGroup row defaultValue="0">
           {pendidikan.map((item, index) => (
             <FormControlLabel
               key={index}
               value={index.toString()}
-              control={<Radio color="primary" />}
+              control={<Radio color="primary" name="pendidikan" inputRef={register} />}
               label={item}
               labelPlacement="end"
             />
@@ -191,18 +136,12 @@ const SectionDataPasien = ({ styles, onValueChange }) => {
       </UserInput>
 
       <UserInput title="Jenis Pasien">
-        <RadioGroup
-          row
-          value={data.jenis}
-          onChange={(e) => {
-            setValue({ jenis: e.target.value });
-          }}
-        >
+        <RadioGroup row defaultValue="0">
           {jenisPasien.map((item, index) => (
             <FormControlLabel
               key={index}
               value={index.toString()}
-              control={<Radio color="primary" />}
+              control={<Radio color="primary" name="jenis" inputRef={register} />}
               label={item}
               labelPlacement="end"
             />
@@ -213,4 +152,4 @@ const SectionDataPasien = ({ styles, onValueChange }) => {
   );
 };
 
-export default SectionDataPasien;
+export default DataPasien;
