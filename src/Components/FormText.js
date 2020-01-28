@@ -4,7 +4,7 @@ import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
 
 const FormText = ({
-  name, form, multiline, suffix, label, style,
+  name, form, multiline, suffix, label, style, rows = 3,
 }) => (
   <Controller
     as={(
@@ -14,7 +14,7 @@ const FormText = ({
         variant="outlined"
         label={label}
         multiline={multiline}
-        rows={multiline ? 3 : undefined}
+        rows={multiline ? rows : undefined}
         InputProps={suffix && {
           endAdornment: <InputAdornment position="end">{suffix}</InputAdornment>,
         }}

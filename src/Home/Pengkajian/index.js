@@ -12,6 +12,7 @@ import Divider from '@material-ui/core/Divider';
 import Anamnesa, { defaultValues as defAnamnesa } from './Anamnesa';
 import Medis, { defaultValues as defMedis } from './Medis';
 import Nyeri, { defaultValues as defNyeri } from './Nyeri';
+import Fisik, { defaultValues as defFisik } from './Fisik';
 
 const useStyles = makeStyles({
   root: {
@@ -32,6 +33,7 @@ const Pengkajian = () => {
       ...defAnamnesa,
       ...defMedis,
       ...defNyeri,
+      ...defFisik,
     },
   });
 
@@ -50,6 +52,8 @@ const Pengkajian = () => {
       </Grid>
 
       <Nyeri styles={styles} form={form} />
+
+      <Fisik styles={styles} form={form} />
     </Paper>
   );
 };
