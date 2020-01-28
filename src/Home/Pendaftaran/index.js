@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import makeStyles from '@material-ui/core/styles/makeStyles';
@@ -34,10 +34,11 @@ const useStyles = makeStyles({
   },
 });
 
-const DaftarBaru = ({ userData }) => {
+const DaftarBaru = ({ userData, match, authToken }) => {
   const styles = useStyles();
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState();
+  const [formValues, setFormValues] = useState();
 
   const defaultValues = {
     pasien: {
@@ -67,27 +68,41 @@ const DaftarBaru = ({ userData }) => {
       wali: '',
       telpWali: '',
     },
+    ...formValues,
   };
 
   const formPasien = useForm({ defaultValues: defaultValues.pasien });
   const formPj = useForm({ defaultValues: defaultValues.pj });
+
+  const onLoaded = () => {
+    const loadData = async () => {
+      const { id } = match.params;
+
+      if (id && authToken) {
+        setLoading(true);
+        const dataPasien = await API.getPendaftaranById(id);
+        setLoading(false);
+        setFormValues(dataPasien);
+      }
+    };
+    loadData();
+  };
+
+  useEffect(onLoaded, [authToken]);
 
   const resetForm = () => {
     formPasien.reset(defaultValues.pasien);
     formPj.reset(defaultValues.pj);
   };
 
+  useEffect(resetForm, [formValues]);
+
   const onSubmit = async () => {
     setLoading(true);
 
-    const formValues = {
+    const formData = {
       pasien: formPasien.getValues(),
       pj: formPj.getValues(),
-    };
-
-    const formData = {
-      ...formValues,
-      jenis: formValues.pasien.jenis,
     };
 
     const result = await API.pasienBaru(formData);
@@ -157,7 +172,8 @@ const DaftarBaru = ({ userData }) => {
   );
 };
 
-const mapStateToProps = ({ userData }) => ({
+const mapStateToProps = ({ authToken, userData }) => ({
+  authToken,
   userData,
 });
 

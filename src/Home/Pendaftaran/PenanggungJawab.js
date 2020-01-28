@@ -10,7 +10,7 @@ import Panel from '../../Components/Panel';
 import UserInput from '../../Components/UserInput';
 
 const PenanggungJawab = ({ styles, form }) => {
-  const { register, control } = form;
+  const { control } = form;
 
   const jenisKelamin = ['Laki-laki', 'Perempuan'];
   const pekerjaan = ['Swasta', 'PNS', 'Petani', 'Lain-lain'];
@@ -19,11 +19,11 @@ const PenanggungJawab = ({ styles, form }) => {
   return (
     <Panel title="Data Penanggung Jawab" className={styles.section}>
       <UserInput title="Nama">
-        <TextField fullWidth size="small" variant="outlined" name="nama" inputRef={register} />
+        <Controller as={<TextField fullWidth size="small" variant="outlined" />} name="nama" control={control} />
       </UserInput>
 
       <UserInput title="NIK/Nomor Passport">
-        <TextField fullWidth size="small" variant="outlined" name="nik" inputRef={register} />
+        <Controller as={<TextField fullWidth size="small" variant="outlined" />} name="nik" control={control} />
       </UserInput>
 
       <UserInput title="Jenis Kelamin">
@@ -41,15 +41,19 @@ const PenanggungJawab = ({ styles, form }) => {
       </UserInput>
 
       <UserInput title="Hubungan">
-        <TextField fullWidth size="small" variant="outlined" name="hubungan" inputRef={register} />
+        <Controller as={<TextField fullWidth size="small" variant="outlined" />} name="hubungan" control={control} />
       </UserInput>
 
       <UserInput title="Alamat">
-        <TextField fullWidth size="small" variant="outlined" multiline rows={3} name="alamat" inputRef={register} />
+        <Controller
+          as={<TextField fullWidth size="small" variant="outlined" multiline rows={3} />}
+          name="alamat"
+          control={control}
+        />
       </UserInput>
 
       <UserInput title="Telp/HP">
-        <TextField fullWidth size="small" variant="outlined" name="telp" inputRef={register} />
+        <Controller as={<TextField fullWidth size="small" variant="outlined" />} name="telp" control={control} />
       </UserInput>
 
       <UserInput title="Pekerjaan">
@@ -81,11 +85,11 @@ const PenanggungJawab = ({ styles, form }) => {
       </UserInput>
 
       <UserInput title="Nama Suami/Istri/Ayah/Ibu">
-        <TextField fullWidth size="small" variant="outlined" name="wali" inputRef={register} />
+        <Controller as={<TextField fullWidth size="small" variant="outlined" />} name="wali" control={control} />
       </UserInput>
 
       <UserInput title="Telp/HP">
-        <TextField fullWidth size="small" variant="outlined" name="telpWali" inputRef={register} />
+        <Controller as={<TextField fullWidth size="small" variant="outlined" />} name="telpWali" control={control} />
       </UserInput>
     </Panel>
   );

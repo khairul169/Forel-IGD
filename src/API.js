@@ -67,6 +67,15 @@ const pasienBaru = async (data) => {
   }
 };
 
+const getPendaftaranById = async (id) => {
+  try {
+    const { result } = await get(`/pendaftaran/id/${id}`);
+    return result;
+  } catch (error) {
+    return false;
+  }
+};
+
 const findPendaftaran = async (query) => {
   try {
     return await post('/pendaftaran', query);
@@ -80,5 +89,6 @@ export default {
   register,
   getUser,
   pasienBaru,
+  getPendaftaranById,
   findPendaftaran,
 };

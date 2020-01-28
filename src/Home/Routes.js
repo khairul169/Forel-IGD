@@ -1,37 +1,55 @@
-import React from 'react';
-
 // Routes
 import Utama from './Utama';
-import DaftarBaru from './DaftarBaru';
-import DaftarLama from './DaftarLama';
+import Pendaftaran from './Pendaftaran';
+import PasienLama from './PasienLama';
+import PasienPonek from './PasienPonek';
+import PasienNonPonek from './PasienNonPonek';
 import Pengkajian from './Pengkajian';
 
 const routeList = [
   {
     title: 'Halaman Utama',
     path: '/',
+    content: Utama,
     exact: true,
-    content: <Utama />,
   },
   {
     title: 'Halaman Utama',
     path: '/utama',
-    content: <Utama />,
+    content: Utama,
   },
   {
     title: 'Pendaftaran Pasien Baru',
-    path: '/daftar-baru',
-    content: <DaftarBaru />,
+    path: '/daftar',
+    content: Pendaftaran,
+    exact: true,
   },
   {
     title: 'Pendaftaran Pasien Lama',
-    path: '/daftar-lama',
-    content: <DaftarLama />,
+    path: '/pasien-lama',
+    content: PasienLama,
+    exact: true,
+  },
+  {
+    title: 'Pendaftaran Pasien Lama',
+    path: '/daftar/:id',
+    content: Pendaftaran,
+    exact: true,
+  },
+  {
+    title: 'Pendaftaran Ponek',
+    path: '/pasien-ponek',
+    content: PasienPonek,
+  },
+  {
+    title: 'Pendaftaran Non Ponek',
+    path: '/pasien-non-ponek',
+    content: PasienNonPonek,
   },
   {
     title: 'Pemeriksaan Dokter',
     path: '/pengkajian',
-    content: <Pengkajian />,
+    content: Pengkajian,
   },
 ];
 

@@ -10,7 +10,7 @@ import Panel from '../../Components/Panel';
 import UserInput from '../../Components/UserInput';
 
 const DataPasien = ({ styles, form }) => {
-  const { register, control } = form;
+  const { control } = form;
 
   const jenisKelamin = ['Laki-laki', 'Perempuan'];
   const kebangsaan = ['Indonesia', 'WNA'];
@@ -23,15 +23,15 @@ const DataPasien = ({ styles, form }) => {
   return (
     <Panel title="Data Pasien" className={styles.section}>
       <UserInput title="No. RM">
-        <TextField fullWidth size="small" variant="outlined" name="rm" inputRef={register} />
+        <Controller as={<TextField fullWidth size="small" variant="outlined" />} name="rm" control={control} />
       </UserInput>
 
       <UserInput title="Nama">
-        <TextField fullWidth size="small" variant="outlined" name="nama" inputRef={register} />
+        <Controller as={<TextField fullWidth size="small" variant="outlined" />} name="nama" control={control} />
       </UserInput>
 
       <UserInput title="NIK/Nomor Passport">
-        <TextField fullWidth size="small" variant="outlined" name="nik" inputRef={register} />
+        <Controller as={<TextField fullWidth size="small" variant="outlined" />} name="nik" control={control} />
       </UserInput>
 
       <UserInput title="Jenis Kelamin">
@@ -49,7 +49,7 @@ const DataPasien = ({ styles, form }) => {
       </UserInput>
 
       <UserInput title="Tempat/Tanggal Lahir">
-        <TextField fullWidth size="small" variant="outlined" name="ttl" inputRef={register} />
+        <Controller as={<TextField fullWidth size="small" variant="outlined" />} name="ttl" control={control} />
       </UserInput>
 
       <UserInput title="Kebangsaan">
@@ -67,19 +67,15 @@ const DataPasien = ({ styles, form }) => {
       </UserInput>
 
       <UserInput title="Alamat">
-        <TextField
-          fullWidth
-          multiline
-          rows={3}
-          size="small"
-          variant="outlined"
+        <Controller
+          as={<TextField fullWidth multiline rows={3} size="small" variant="outlined" />}
           name="alamat"
-          inputRef={register}
+          control={control}
         />
       </UserInput>
 
       <UserInput title="Telp/HP">
-        <TextField fullWidth size="small" variant="outlined" name="telp" inputRef={register} />
+        <Controller as={<TextField fullWidth size="small" variant="outlined" />} name="telp" control={control} />
       </UserInput>
 
       <UserInput title="Agama">

@@ -58,9 +58,7 @@ const HeaderTitle = () => (
 const Content = () => (
   <Switch>
     {Routes.map((item, index) => (
-      <Route path={item.path} exact={item.exact} key={index}>
-        {item.content}
-      </Route>
+      <Route path={item.path} exact={item.exact} key={index} component={item.content} />
     ))}
     <NotFound />
   </Switch>

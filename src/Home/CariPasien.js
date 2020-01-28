@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import moment from 'moment';
 import 'moment/locale/id';
+import { Link } from 'react-router-dom';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
 // Components
@@ -10,6 +11,7 @@ import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import API from '../API';
 
@@ -34,6 +36,12 @@ const useStyles = makeStyles({
     marginTop: 16,
     padding: 16,
   },
+  progress: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 24,
+  },
 });
 
 const inputDefault = {
@@ -42,10 +50,11 @@ const inputDefault = {
   ttl: '',
 };
 
-const DaftarBaru = () => {
+const CariPasien = ({ jenis }) => {
   const styles = useStyles();
 
   // States
+  const [loading, setLoading] = useState(false);
   const [input, setInput] = useState(inputDefault);
   const [items, setItems] = useState();
 
@@ -53,7 +62,10 @@ const DaftarBaru = () => {
   const timeout = useRef();
 
   const searchRegistration = async () => {
-    const { result } = await API.findPendaftaran(input);
+    setLoading(true);
+    const query = jenis !== undefined ? { ...input, jenis } : input;
+    const { result } = await API.findPendaftaran(query);
+    setLoading(false);
     setItems(result);
   };
 
@@ -113,32 +125,40 @@ const DaftarBaru = () => {
         </div>
       </Paper>
 
+      {loading && (
+      <div className={styles.progress}>
+        <CircularProgress />
+      </div>
+      )}
+
       {items && items.map((item, index) => (
-        <Grid container spacing={2} component={Paper} key={index} className={styles.item}>
-          <Grid item xs={2}>
-            <Typography variant="subtitle2" gutterBottom>No. RM</Typography>
-            <Typography variant="h6">{item.pasien.rm}</Typography>
+        <Link key={index} to={`/daftar/${item._id}`} style={{ textDecoration: 'none' }}>
+          <Grid container spacing={2} component={Paper} key={index} className={styles.item}>
+            <Grid item xs={1}>
+              <Typography variant="caption" gutterBottom>No. RM</Typography>
+              <Typography>{item.pasien.rm}</Typography>
+            </Grid>
+            <Grid item xs>
+              <Typography variant="caption" gutterBottom>Nama Pasien</Typography>
+              <Typography>{item.pasien.nama}</Typography>
+            </Grid>
+            <Grid item xs>
+              <Typography variant="caption" gutterBottom>Tempat/Tanggal Lahir</Typography>
+              <Typography>{item.pasien.ttl || '-'}</Typography>
+            </Grid>
+            <Grid item xs>
+              <Typography variant="caption" gutterBottom>Jenis Pasien</Typography>
+              <Typography>{item.jenis === '1' ? 'Non Ponek' : 'Ponek'}</Typography>
+            </Grid>
+            <Grid item xs>
+              <Typography variant="caption" gutterBottom>Tanggal Pendaftaran</Typography>
+              <Typography>{moment(item.tanggal).format('dddd, Do MMMM YYYY HH:mm')}</Typography>
+            </Grid>
           </Grid>
-          <Grid item xs>
-            <Typography variant="subtitle2" gutterBottom>Nama Pasien</Typography>
-            <Typography variant="h6">{item.pasien.nama}</Typography>
-          </Grid>
-          <Grid item xs>
-            <Typography variant="subtitle2" gutterBottom>Tempat/Tanggal Lahir</Typography>
-            <Typography variant="h6">{item.pasien.ttl || '-'}</Typography>
-          </Grid>
-          <Grid item xs>
-            <Typography variant="subtitle2" gutterBottom>Jenis Pasien</Typography>
-            <Typography variant="h6">{item.jenis ? 'Non Ponek' : 'Ponek'}</Typography>
-          </Grid>
-          <Grid item xs variant="subtitle2" gutterBottom>
-            <Typography>Tanggal Pendaftaran</Typography>
-            <Typography variant="h6">{moment(item.tanggal).format('dddd, Do MMMM YYYY HH:mm')}</Typography>
-          </Grid>
-        </Grid>
+        </Link>
       ))}
     </div>
   );
 };
 
-export default DaftarBaru;
+export default CariPasien;

@@ -75,11 +75,11 @@ const Drawer = ({ setAuthToken }) => {
         </ListItem>
         <Collapse in={collapsedMenu === 1}>
           <List disablePadding>
-            <ListItem dense button component={RouteLink} to="/daftar-baru">
+            <ListItem dense button component={RouteLink} to="/daftar">
               <ListItemIcon><div /></ListItemIcon>
               <ListItemText>Daftar Baru</ListItemText>
             </ListItem>
-            <ListItem dense button component={RouteLink} to="/daftar-lama">
+            <ListItem dense button component={RouteLink} to="/pasien-lama">
               <ListItemIcon><div /></ListItemIcon>
               <ListItemText>Pasien Lama</ListItemText>
             </ListItem>
