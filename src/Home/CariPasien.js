@@ -94,13 +94,13 @@ const CariPasien = ({ jenis }) => {
 
         <Grid container className={styles.container} spacing={2}>
           <Grid item xs>
-            <TextField fullWidth variant="outlined" label="No. RM" name="rm" value={input.rm} onChange={onChange} />
+            <TextField fullWidth size="small" variant="outlined" label="No. RM" name="rm" value={input.rm} onChange={onChange} />
           </Grid>
           <Grid item xs>
-            <TextField fullWidth variant="outlined" label="Nama" name="nama" value={input.nama} onChange={onChange} />
+            <TextField fullWidth size="small" variant="outlined" label="Nama" name="nama" value={input.nama} onChange={onChange} />
           </Grid>
           <Grid item xs>
-            <TextField fullWidth variant="outlined" label="Tempat/Tanggal Lahir" name="ttl" value={input.ttl} onChange={onChange} />
+            <TextField fullWidth size="small" variant="outlined" label="Tempat/Tanggal Lahir" name="ttl" value={input.ttl} onChange={onChange} />
           </Grid>
         </Grid>
 
