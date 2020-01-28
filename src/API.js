@@ -61,8 +61,15 @@ const getUser = async () => {
 
 const pasienBaru = async (data) => {
   try {
-    const response = await post('/pasien_baru', data);
-    return response;
+    return await post('/pasien_baru', data);
+  } catch (error) {
+    return false;
+  }
+};
+
+const findPendaftaran = async (query) => {
+  try {
+    return await post('/pendaftaran', query);
   } catch (error) {
     return false;
   }
@@ -73,4 +80,5 @@ export default {
   register,
   getUser,
   pasienBaru,
+  findPendaftaran,
 };
