@@ -1,82 +1,42 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 // Components
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Panel from '../../Components/Panel';
 import UserInput from '../../Components/UserInput';
+import FormText from '../../Components/FormText';
+import FormOption from '../../Components/FormOption';
 
-const Anamnesa = ({ styles, onValueChange }) => {
+export const defaultValues = {
+  waktu: null,
+  auto: '',
+  alloo: '',
+  riwayatPenyakit: '',
+  alergiObat: '0',
+  alergiMakanan: '0',
+  pantangan: '',
+};
+
+const Anamnesa = ({ styles, form }) => {
   const riwayat = ['Tidak', 'Ya'];
-
-  const [data, setData] = useState({
-    waktu: null,
-    auto: '',
-    alloo: '',
-    riwayatPenyakit: '',
-    alergiObat: '0',
-    alergiMakanan: '0',
-    pantangan: '',
-  });
-
-  const setValue = (state) => {
-    setData({ ...data, ...state });
-
-    if (typeof onValueChange === 'function') {
-      onValueChange(data);
-    }
-  };
 
   return (
     <Panel title="I. Anamnesa" className={styles.section}>
       <UserInput title="Waktu Pengkajian">
-        <TextField
-          fullWidth
-          size="small"
-          variant="outlined"
-          value={data.nama}
-          onChange={(e) => setValue({ nama: e.target.value })}
-        />
+        <FormText name="waktu" form={form} />
       </UserInput>
 
       <UserInput title="Anamnesa Auto">
-        <TextField
-          fullWidth
-          size="small"
-          variant="outlined"
-          multiline
-          rows={3}
-          value={data.auto}
-          onChange={(e) => setValue({ auto: e.target.value })}
-        />
+        <FormText name="auto" form={form} multiline />
       </UserInput>
 
       <UserInput title="Anamnesa Alloo">
-        <TextField
-          fullWidth
-          size="small"
-          variant="outlined"
-          multiline
-          rows={3}
-          value={data.alloo}
-          onChange={(e) => setValue({ alloo: e.target.value })}
-        />
+        <FormText name="alloo" form={form} multiline />
       </UserInput>
 
       <UserInput title="Riwayat Penyakit">
-        <TextField
-          fullWidth
-          size="small"
-          variant="outlined"
-          multiline
-          rows={3}
-          value={data.riwayatPenyakit}
-          onChange={(e) => setValue({ riwayatPenyakit: e.target.value })}
-        />
+        <FormText name="riwayatPenyakit" form={form} multiline />
       </UserInput>
 
       <UserInput title="Riwayat Alergi" titleStyle={{ marginTop: 8 }}>
@@ -85,46 +45,21 @@ const Anamnesa = ({ styles, onValueChange }) => {
             <Typography>Obat</Typography>
           </Grid>
           <Grid item xs={8} lg={9}>
-            <RadioGroup
-              row
-              value={data.alergiObat}
-              onChange={(e) => {
-                setValue({ alergiObat: e.target.value });
-              }}
-            >
-              {riwayat.map((item, index) => (
-                <FormControlLabel
-                  key={index}
-                  value={index.toString()}
-                  control={<Radio color="primary" />}
-                  label={item}
-                  labelPlacement="end"
-                />
-              ))}
-            </RadioGroup>
+            <FormOption name="alergiObat" form={form} items={riwayat} />
           </Grid>
 
           <Grid item xs={4} lg={3}>
             <Typography>Makanan</Typography>
           </Grid>
           <Grid item xs={8} lg={9}>
-            <RadioGroup
-              row
-              value={data.alergiMakanan}
-              onChange={(e) => {
-                setValue({ alergiMakanan: e.target.value });
-              }}
-            >
-              {riwayat.map((item, index) => (
-                <FormControlLabel
-                  key={index}
-                  value={index.toString()}
-                  control={<Radio color="primary" />}
-                  label={item}
-                  labelPlacement="end"
-                />
-              ))}
-            </RadioGroup>
+            <FormOption name="alergiMakanan" form={form} items={riwayat} />
+          </Grid>
+
+          <Grid item xs={4} lg={3}>
+            <Typography>Pantangan</Typography>
+          </Grid>
+          <Grid item xs={8} lg={9}>
+            <FormText name="pantangan" form={form} />
           </Grid>
         </Grid>
       </UserInput>

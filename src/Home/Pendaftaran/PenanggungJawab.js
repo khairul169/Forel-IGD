@@ -1,17 +1,25 @@
 import React from 'react';
-import { Controller } from 'react-hook-form';
 
 // Components
-import TextField from '@material-ui/core/TextField';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Panel from '../../Components/Panel';
 import UserInput from '../../Components/UserInput';
+import FormText from '../../Components/FormText';
+import FormOption from '../../Components/FormOption';
+
+export const defaultValues = {
+  nama: '',
+  nik: '',
+  kelamin: '0',
+  hubungan: '',
+  alamat: '',
+  telp: '',
+  pekerjaan: '0',
+  pendidikan: '0',
+  wali: '',
+  telpWali: '',
+};
 
 const PenanggungJawab = ({ styles, form }) => {
-  const { control } = form;
-
   const jenisKelamin = ['Laki-laki', 'Perempuan'];
   const pekerjaan = ['Swasta', 'PNS', 'Petani', 'Lain-lain'];
   const pendidikan = ['Tidak Sekolah', 'SD', 'SMP', 'SMA', 'Perguruan Tinggi'];
@@ -19,77 +27,43 @@ const PenanggungJawab = ({ styles, form }) => {
   return (
     <Panel title="Data Penanggung Jawab" className={styles.section}>
       <UserInput title="Nama">
-        <Controller as={<TextField fullWidth size="small" variant="outlined" />} name="nama" control={control} />
+        <FormText name="nama" form={form} />
       </UserInput>
 
       <UserInput title="NIK/Nomor Passport">
-        <Controller as={<TextField fullWidth size="small" variant="outlined" />} name="nik" control={control} />
+        <FormText name="nik" form={form} />
       </UserInput>
 
       <UserInput title="Jenis Kelamin">
-        <Controller as={<RadioGroup row />} name="kelamin" control={control}>
-          {jenisKelamin.map((item, index) => (
-            <FormControlLabel
-              key={index}
-              value={index.toString()}
-              control={<Radio color="primary" />}
-              label={item}
-              labelPlacement="end"
-            />
-          ))}
-        </Controller>
+        <FormOption name="kelamin" form={form} items={jenisKelamin} />
       </UserInput>
 
       <UserInput title="Hubungan">
-        <Controller as={<TextField fullWidth size="small" variant="outlined" />} name="hubungan" control={control} />
+        <FormText name="hubungan" form={form} />
       </UserInput>
 
       <UserInput title="Alamat">
-        <Controller
-          as={<TextField fullWidth size="small" variant="outlined" multiline rows={3} />}
-          name="alamat"
-          control={control}
-        />
+        <FormText name="alamat" form={form} multiline />
       </UserInput>
 
       <UserInput title="Telp/HP">
-        <Controller as={<TextField fullWidth size="small" variant="outlined" />} name="telp" control={control} />
+        <FormText name="telp" form={form} />
       </UserInput>
 
       <UserInput title="Pekerjaan">
-        <Controller as={<RadioGroup row />} name="pekerjaan" control={control}>
-          {pekerjaan.map((item, index) => (
-            <FormControlLabel
-              key={index}
-              value={index.toString()}
-              control={<Radio color="primary" />}
-              label={item}
-              labelPlacement="end"
-            />
-          ))}
-        </Controller>
+        <FormOption name="pekerjaan" form={form} items={pekerjaan} />
       </UserInput>
 
       <UserInput title="Pendidikan">
-        <Controller as={<RadioGroup row />} name="pendidikan" control={control}>
-          {pendidikan.map((item, index) => (
-            <FormControlLabel
-              key={index}
-              value={index.toString()}
-              control={<Radio color="primary" />}
-              label={item}
-              labelPlacement="end"
-            />
-          ))}
-        </Controller>
+        <FormOption name="pendidikan" form={form} items={pendidikan} />
       </UserInput>
 
       <UserInput title="Nama Suami/Istri/Ayah/Ibu">
-        <Controller as={<TextField fullWidth size="small" variant="outlined" />} name="wali" control={control} />
+        <FormText name="wali" form={form} />
       </UserInput>
 
       <UserInput title="Telp/HP">
-        <Controller as={<TextField fullWidth size="small" variant="outlined" />} name="telpWali" control={control} />
+        <FormText name="telpWali" form={form} />
       </UserInput>
     </Panel>
   );

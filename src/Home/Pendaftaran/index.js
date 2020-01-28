@@ -10,8 +10,8 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 
 // Section
-import DataPasien from './DataPasien';
-import PenanggungJawab from './PenanggungJawab';
+import DataPasien, { defaultValues as defPasien } from './DataPasien';
+import PenanggungJawab, { defaultValues as defPj } from './PenanggungJawab';
 
 import Dialog from '../../Components/Dialog';
 import API from '../../API';
@@ -38,41 +38,9 @@ const DaftarBaru = ({ userData, match, authToken }) => {
   const styles = useStyles();
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState();
-  const [formValues, setFormValues] = useState();
 
-  const defaultValues = {
-    pasien: {
-      rm: '',
-      nama: '',
-      nik: '',
-      kelamin: '0',
-      ttl: '',
-      kebangsaan: '0',
-      alamat: '',
-      telp: '',
-      agama: '0',
-      perkawinan: '0',
-      pekerjaan: '0',
-      pendidikan: '0',
-      jenis: '0',
-    },
-    pj: {
-      nama: '',
-      nik: '',
-      kelamin: '0',
-      hubungan: '',
-      alamat: '',
-      telp: '',
-      pekerjaan: '0',
-      pendidikan: '0',
-      wali: '',
-      telpWali: '',
-    },
-    ...formValues,
-  };
-
-  const formPasien = useForm({ defaultValues: defaultValues.pasien });
-  const formPj = useForm({ defaultValues: defaultValues.pj });
+  const formPasien = useForm({ defaultValues: defPasien });
+  const formPj = useForm({ defaultValues: defPj });
 
   const onLoaded = () => {
     const loadData = async () => {
@@ -80,9 +48,12 @@ const DaftarBaru = ({ userData, match, authToken }) => {
 
       if (id && authToken) {
         setLoading(true);
-        const dataPasien = await API.getPendaftaranById(id);
+        const data = await API.getPendaftaranById(id);
         setLoading(false);
-        setFormValues(dataPasien);
+
+        // Set form data
+        formPasien.reset(data.pasien);
+        formPj.reset(data.pj);
       }
     };
     loadData();
@@ -91,11 +62,9 @@ const DaftarBaru = ({ userData, match, authToken }) => {
   useEffect(onLoaded, [authToken]);
 
   const resetForm = () => {
-    formPasien.reset(defaultValues.pasien);
-    formPj.reset(defaultValues.pj);
+    formPasien.reset(defPasien);
+    formPj.reset(defPj);
   };
-
-  useEffect(resetForm, [formValues]);
 
   const onSubmit = async () => {
     setLoading(true);

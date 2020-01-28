@@ -1,4 +1,5 @@
 import React from 'react';
+import { useForm } from 'react-hook-form';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
 // Components
@@ -8,7 +9,7 @@ import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
 
 // Section
-import Anamnesa from './Anamnesa';
+import Anamnesa, { defaultValues as defAnamnesa } from './Anamnesa';
 import Medis from './Medis';
 
 const useStyles = makeStyles({
@@ -25,6 +26,8 @@ const useStyles = makeStyles({
 const Pengkajian = () => {
   const styles = useStyles();
 
+  const formAnamnesa = useForm({ defaultValues: defAnamnesa });
+
   return (
     <Paper className={styles.root} square>
       <Typography variant="h6" gutterBottom>Pengkajian Medis Pasien Instalasi Gawat Darurat</Typography>
@@ -32,7 +35,7 @@ const Pengkajian = () => {
 
       <Grid container spacing={2}>
         <Grid item xs={12} lg={6}>
-          <Anamnesa styles={styles} />
+          <Anamnesa styles={styles} form={formAnamnesa} />
         </Grid>
         <Grid item xs={12} lg={6}>
           <Medis styles={styles} />
