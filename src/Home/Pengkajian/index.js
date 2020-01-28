@@ -38,7 +38,7 @@ const Pengkajian = () => {
           <Anamnesa styles={styles} form={formAnamnesa} />
         </Grid>
         <Grid item xs={12} lg={6}>
-          <Medis styles={styles} />
+          <Medis styles={styles} form={formAnamnesa} />
         </Grid>
       </Grid>
     </Paper>
