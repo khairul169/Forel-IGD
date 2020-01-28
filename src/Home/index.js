@@ -90,6 +90,7 @@ const Home = ({ userData, setAuthToken, setUserData }) => {
       setUserData(user.result);
     } catch (error) {
       sessionStorage.clear();
+      setAuthToken(null);
       setRedirectLogin(true);
     }
   };
