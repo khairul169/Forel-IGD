@@ -6,7 +6,7 @@ import Grid from '@material-ui/core/Grid';
 
 const UserInput = ({ children, title, titleStyle }) => (
   <Grid container spacing={2}>
-    <Grid item xs={3} component={Typography} style={titleStyle}>
+    <Grid item xs={3} component={Typography} style={titleStyle} variant="subtitle2">
       {title}
     </Grid>
     <Grid item xs={9}>

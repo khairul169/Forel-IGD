@@ -45,14 +45,14 @@ const Anamnesa = ({ styles, form }) => {
             <Typography>Obat</Typography>
           </Grid>
           <Grid item xs={8} lg={9}>
-            <FormOption name="alergiObat" form={form} items={riwayat} />
+            <FormOption name="alergiObat" form={form} items={riwayat} cols={2} />
           </Grid>
 
           <Grid item xs={4} lg={3}>
             <Typography>Makanan</Typography>
           </Grid>
           <Grid item xs={8} lg={9}>
-            <FormOption name="alergiMakanan" form={form} items={riwayat} />
+            <FormOption name="alergiMakanan" form={form} items={riwayat} cols={2} />
           </Grid>
 
           <Grid item xs={4} lg={3}>

@@ -1,21 +1,36 @@
 import React from 'react';
 import { Controller } from 'react-hook-form';
-import RadioGroup from '@material-ui/core/RadioGroup';
+import Grid from '@material-ui/core/Grid';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
 
-const FormOption = ({ name, form, items }) => (
-  <Controller as={<RadioGroup row />} name={name} control={form.control}>
+const RadioContainer = ({
+  value, items, onChange, cols = 4,
+}) => (
+  <Grid container spacing={1}>
     {items.map((item, index) => (
-      <FormControlLabel
-        key={index}
-        value={index.toString()}
-        control={<Radio color="primary" />}
-        label={item}
-        labelPlacement="end"
-      />
+      <Grid key={index} item xs={12} md={cols ? ((12 / cols) * 2) : 6} lg={cols ? (12 / cols) : 3}>
+        <FormControlLabel
+          checked={value === index.toString()}
+          control={<Radio color="primary" />}
+          label={item}
+          labelPlacement="end"
+          value={index.toString()}
+          onChange={onChange}
+        />
+      </Grid>
     ))}
-  </Controller>
+  </Grid>
+);
+
+const FormOption = ({
+  name, form, items, cols,
+}) => (
+  <Controller
+    as={<RadioContainer items={items} cols={cols} />}
+    name={name}
+    control={form.control}
+  />
 );
 
 export default FormOption;

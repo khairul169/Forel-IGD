@@ -10,7 +10,8 @@ import Divider from '@material-ui/core/Divider';
 
 // Section
 import Anamnesa, { defaultValues as defAnamnesa } from './Anamnesa';
-import Medis from './Medis';
+import Medis, { defaultValues as defMedis } from './Medis';
+import Nyeri, { defaultValues as defNyeri } from './Nyeri';
 
 const useStyles = makeStyles({
   root: {
@@ -26,7 +27,13 @@ const useStyles = makeStyles({
 const Pengkajian = () => {
   const styles = useStyles();
 
-  const formAnamnesa = useForm({ defaultValues: defAnamnesa });
+  const form = useForm({
+    defaultValues: {
+      ...defAnamnesa,
+      ...defMedis,
+      ...defNyeri,
+    },
+  });
 
   return (
     <Paper className={styles.root} square>
@@ -35,12 +42,14 @@ const Pengkajian = () => {
 
       <Grid container spacing={2}>
         <Grid item xs={12} lg={6}>
-          <Anamnesa styles={styles} form={formAnamnesa} />
+          <Anamnesa styles={styles} form={form} />
         </Grid>
         <Grid item xs={12} lg={6}>
-          <Medis styles={styles} form={formAnamnesa} />
+          <Medis styles={styles} form={form} />
         </Grid>
       </Grid>
+
+      <Nyeri styles={styles} form={form} />
     </Paper>
   );
 };

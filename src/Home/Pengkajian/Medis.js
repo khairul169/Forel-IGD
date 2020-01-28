@@ -30,11 +30,11 @@ const Medis = ({ styles, form }) => {
   return (
     <Panel title="II. Pengkajian Medis" className={styles.section}>
       <UserInput title="Keadaan Umum" titleStyle={{ marginTop: 8 }}>
-        <FormOption name="keadaanUmum" form={form} items={keadaanUmum} />
+        <FormOption name="keadaanUmum" form={form} items={keadaanUmum} cols={3} />
       </UserInput>
 
       <UserInput title="Kesadaran" titleStyle={{ marginTop: 8 }}>
-        <FormOption name="kesadaran" form={form} items={kesadaran} />
+        <FormOption name="kesadaran" form={form} items={kesadaran} cols={3} />
       </UserInput>
 
       <UserInput title="GCS">
