@@ -9,7 +9,7 @@ import FormText from '../../Components/FormText';
 import FormOption from '../../Components/FormOption';
 
 export const defaultValues = {
-  waktu: null,
+  waktu: '',
   auto: '',
   alloo: '',
   riwayatPenyakit: '',

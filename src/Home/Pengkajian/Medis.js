@@ -16,9 +16,9 @@ export const defaultValues = {
   td: '',
   nadi: '',
   bb: '',
-  saturasi: '',
+  sat: '',
   suhu: '',
-  nafas: '',
+  rr: '',
   reguler: '',
   ews: '',
 };
