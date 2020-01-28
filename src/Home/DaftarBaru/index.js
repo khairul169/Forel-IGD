@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
@@ -39,42 +38,56 @@ const DaftarBaru = ({ userData }) => {
   const styles = useStyles();
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState();
-  const [success, setSuccess] = useState(false);
-  const [refresh, setRefresh] = useState(false);
 
-  const { register, handleSubmit } = useForm();
+  const defaultValues = {
+    pasien: {
+      rm: '',
+      nama: '',
+      nik: '',
+      kelamin: '0',
+      ttl: '',
+      kebangsaan: '0',
+      alamat: '',
+      telp: '',
+      agama: '0',
+      perkawinan: '0',
+      pekerjaan: '0',
+      pendidikan: '0',
+      jenis: '0',
+    },
+    pj: {
+      nama: '',
+      nik: '',
+      kelamin: '0',
+      hubungan: '',
+      alamat: '',
+      telp: '',
+      pekerjaan: '0',
+      pendidikan: '0',
+      wali: '',
+      telpWali: '',
+    },
+  };
 
-  const onSubmit = async (data) => {
+  const formPasien = useForm({ defaultValues: defaultValues.pasien });
+  const formPj = useForm({ defaultValues: defaultValues.pj });
+
+  const resetForm = () => {
+    formPasien.reset(defaultValues.pasien);
+    formPj.reset(defaultValues.pj);
+  };
+
+  const onSubmit = async () => {
     setLoading(true);
 
+    const formValues = {
+      pasien: formPasien.getValues(),
+      pj: formPj.getValues(),
+    };
+
     const formData = {
-      pasien: {
-        rm: data.rm,
-        nama: data.nama,
-        nik: data.nik,
-        kelamin: data.kelamin,
-        ttl: data.ttl,
-        kebangsaan: data.kebangsaan,
-        alamat: data.alamat,
-        telp: data.telp,
-        agama: data.agama,
-        perkawinan: data.perkawinan,
-        pekerjaan: data.pekerjaan,
-        pendidikan: data.pendidikan,
-      },
-      pj: {
-        nama: data.nama_pj,
-        nik: data.nik_pj,
-        kelamin: data.kelamin_pj,
-        hubungan: data.hubungan_pj,
-        alamat: data.alamat_pj,
-        telp: data.telp_pj,
-        pekerjaan: data.pekerjaan_pj,
-        pendidikan: data.pendidikan_pj,
-        wali: data.wali,
-        telpWali: data.telp_wali,
-      },
-      jenis: data.jenis,
+      ...formValues,
+      jenis: formValues.pasien.jenis,
     };
 
     const result = await API.pasienBaru(formData);
@@ -83,66 +96,63 @@ const DaftarBaru = ({ userData }) => {
     if (!result || result.error) {
       if (typeof result.error === 'string') setMessage(result.error);
     } else {
-      setSuccess(true);
       setMessage('Data telah ditambahkan.');
-    }
-  };
-
-  const onDialogClose = () => {
-    setMessage(null);
-    if (success) {
-      setRefresh(true);
+      resetForm();
     }
   };
 
   return (
     <Paper className={styles.root} square>
-      <Dialog title="Konfirmasi" content={message} onClose={onDialogClose} />
-      {refresh && <Redirect to="/daftar-baru" />}
+      <Dialog title="Konfirmasi" content={message} onClose={() => setMessage(null)} />
 
       <Typography variant="h6" gutterBottom>Identifikasi Pasien</Typography>
 
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <DataPasien styles={styles} register={register} />
-        <PenanggungJawab styles={styles} register={register} />
+      <DataPasien styles={styles} form={formPasien} />
+      <PenanggungJawab styles={styles} form={formPj} />
 
-        <div className={styles.spacing} />
+      <div className={styles.spacing} />
 
-        <Grid container spacing={2}>
-          <Grid item xs={7}>
-            <Typography variant="body2" gutterBottom>
-        Semua informasi adalah benar dan valid yang telah disampaikan penanggung jawab.
-            </Typography>
-            <Typography variant="body2" gutterBottom>1. Data sesuai dengan KTP/KK/Passport.</Typography>
-            <Typography variant="body2" gutterBottom>
-        2. Periksa kembali data yang telah anda isikan dan pastikan sudah sesuai
-        dengan KTP/KK/Passport.
-            </Typography>
-          </Grid>
-          <Grid item xs={5}>
-            <Typography variant="h6" gutterBottom align="center" className={styles.namaRegistrar}>
-              {userData && userData.nama}
-            </Typography>
-            <Grid container spacing={2}>
-              <Grid item xs>
-                <Button
-                  fullWidth
-                  type="submit"
-                  variant="contained"
-                  color="primary"
-                  size="large"
-                  disabled={loading}
-                >
-                Simpan
-                </Button>
-              </Grid>
-              <Grid item xs>
-                <Button type="reset" fullWidth variant="contained" size="large">Bersihkan</Button>
-              </Grid>
+      <Grid container spacing={2}>
+        <Grid item xs={7}>
+          <Typography variant="body2" gutterBottom>
+      Semua informasi adalah benar dan valid yang telah disampaikan penanggung jawab.
+          </Typography>
+          <Typography variant="body2" gutterBottom>1. Data sesuai dengan KTP/KK/Passport.</Typography>
+          <Typography variant="body2" gutterBottom>
+      2. Periksa kembali data yang telah anda isikan dan pastikan sudah sesuai
+      dengan KTP/KK/Passport.
+          </Typography>
+        </Grid>
+        <Grid item xs={5}>
+          <Typography variant="h6" gutterBottom align="center" className={styles.namaRegistrar}>
+            {userData && userData.nama}
+          </Typography>
+          <Grid container spacing={2}>
+            <Grid item xs>
+              <Button
+                fullWidth
+                variant="contained"
+                color="primary"
+                size="large"
+                disabled={loading}
+                onClick={onSubmit}
+              >
+              Simpan
+              </Button>
+            </Grid>
+            <Grid item xs>
+              <Button
+                fullWidth
+                variant="contained"
+                size="large"
+                onClick={resetForm}
+              >
+                Bersihkan
+              </Button>
             </Grid>
           </Grid>
         </Grid>
-      </form>
+      </Grid>
     </Paper>
   );
 };

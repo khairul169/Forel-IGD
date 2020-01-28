@@ -1,4 +1,5 @@
 import React from 'react';
+import { Controller } from 'react-hook-form';
 
 // Components
 import TextField from '@material-ui/core/TextField';
@@ -8,7 +9,9 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Panel from '../../Components/Panel';
 import UserInput from '../../Components/UserInput';
 
-const DataPasien = ({ styles, register }) => {
+const DataPasien = ({ styles, form }) => {
+  const { register, control } = form;
+
   const jenisKelamin = ['Laki-laki', 'Perempuan'];
   const kebangsaan = ['Indonesia', 'WNA'];
   const agama = ['Islam', 'Kristen', 'Katolik', 'Hindu', 'Buddha', 'Konghucu', 'Lain-lain'];
@@ -32,17 +35,17 @@ const DataPasien = ({ styles, register }) => {
       </UserInput>
 
       <UserInput title="Jenis Kelamin">
-        <RadioGroup row defaultValue="0">
+        <Controller as={<RadioGroup row />} name="kelamin" control={control}>
           {jenisKelamin.map((item, index) => (
             <FormControlLabel
               key={index}
               value={index.toString()}
-              control={<Radio color="primary" name="kelamin" inputRef={register} />}
+              control={<Radio color="primary" />}
               label={item}
               labelPlacement="end"
             />
           ))}
-        </RadioGroup>
+        </Controller>
       </UserInput>
 
       <UserInput title="Tempat/Tanggal Lahir">
@@ -50,17 +53,17 @@ const DataPasien = ({ styles, register }) => {
       </UserInput>
 
       <UserInput title="Kebangsaan">
-        <RadioGroup row defaultValue="0">
+        <Controller as={<RadioGroup row />} name="kebangsaan" control={control}>
           {kebangsaan.map((item, index) => (
             <FormControlLabel
               key={index}
               value={index.toString()}
-              control={<Radio color="primary" name="kebangsaan" inputRef={register} />}
+              control={<Radio color="primary" />}
               label={item}
               labelPlacement="end"
             />
           ))}
-        </RadioGroup>
+        </Controller>
       </UserInput>
 
       <UserInput title="Alamat">
@@ -80,73 +83,73 @@ const DataPasien = ({ styles, register }) => {
       </UserInput>
 
       <UserInput title="Agama">
-        <RadioGroup row defaultValue="0">
+        <Controller as={<RadioGroup row />} name="agama" control={control}>
           {agama.map((item, index) => (
             <FormControlLabel
               key={index}
               value={index.toString()}
-              control={<Radio color="primary" name="agama" inputRef={register} />}
+              control={<Radio color="primary" />}
               label={item}
               labelPlacement="end"
             />
           ))}
-        </RadioGroup>
+        </Controller>
       </UserInput>
 
       <UserInput title="Status Perkawinan">
-        <RadioGroup row defaultValue="0">
+        <Controller as={<RadioGroup row />} name="perkawinan" control={control}>
           {perkawinan.map((item, index) => (
             <FormControlLabel
               key={index}
               value={index.toString()}
-              control={<Radio color="primary" name="perkawinan" inputRef={register} />}
+              control={<Radio color="primary" />}
               label={item}
               labelPlacement="end"
             />
           ))}
-        </RadioGroup>
+        </Controller>
       </UserInput>
 
       <UserInput title="Pekerjaan">
-        <RadioGroup row defaultValue="0">
+        <Controller as={<RadioGroup row />} name="pekerjaan" control={control}>
           {pekerjaan.map((item, index) => (
             <FormControlLabel
               key={index}
               value={index.toString()}
-              control={<Radio color="primary" name="pekerjaan" inputRef={register} />}
+              control={<Radio color="primary" />}
               label={item}
               labelPlacement="end"
             />
           ))}
-        </RadioGroup>
+        </Controller>
       </UserInput>
 
       <UserInput title="Pendidikan">
-        <RadioGroup row defaultValue="0">
+        <Controller as={<RadioGroup row />} name="pendidikan" control={control}>
           {pendidikan.map((item, index) => (
             <FormControlLabel
               key={index}
               value={index.toString()}
-              control={<Radio color="primary" name="pendidikan" inputRef={register} />}
+              control={<Radio color="primary" />}
               label={item}
               labelPlacement="end"
             />
           ))}
-        </RadioGroup>
+        </Controller>
       </UserInput>
 
       <UserInput title="Jenis Pasien">
-        <RadioGroup row defaultValue="0">
+        <Controller as={<RadioGroup row />} name="jenis" control={control}>
           {jenisPasien.map((item, index) => (
             <FormControlLabel
               key={index}
               value={index.toString()}
-              control={<Radio color="primary" name="jenis" inputRef={register} />}
+              control={<Radio color="primary" />}
               label={item}
               labelPlacement="end"
             />
           ))}
-        </RadioGroup>
+        </Controller>
       </UserInput>
     </Panel>
   );
