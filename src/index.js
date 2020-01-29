@@ -12,7 +12,7 @@ import Home from './Home';
 
 const App = () => (
   <ReduxProvider store={reduxStore}>
-    <Router>
+    <Router basename="/forel_igd">
       <CssBaseline />
       <Switch>
         <Route path="/login" component={Login} />
