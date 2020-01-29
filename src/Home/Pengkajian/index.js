@@ -59,7 +59,6 @@ const Pengkajian = ({ authToken, match }) => {
       if (typeof result.error === 'string') {
         setMessage(result.error);
       } else {
-        console.log(result);
         setMessage('Gagal menyimpan data.');
       }
     } else {

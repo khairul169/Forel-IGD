@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 // Components
 import Typography from '@material-ui/core/Typography';
@@ -56,7 +57,7 @@ export const defaultValues = {
 };
 
 const Fisik = ({
-  styles, form, onSubmit, onReset, loading,
+  styles, form, onSubmit, onReset, loading, userData,
 }) => {
   const polaNafas = ['Normal', 'Dispneu', 'Kusmaull', 'Cheyne Stokes', 'Stridor'];
   const kepala = ['Simetris', 'Asimetris', { input: 'kepalaLain', label: 'Lain-lain' }];
@@ -280,8 +281,9 @@ const Fisik = ({
           </Grid>
 
           <Grid item>
+            <Typography align="center" gutterBottom>Semua informasi adalah benar dan valid.</Typography>
             <Typography variant="h6" align="center" style={{ marginBottom: 64 }}>
-            Nama Dokter
+              {userData && userData.nama}
             </Typography>
             <Grid container spacing={2}>
               <Grid item xs>
@@ -347,4 +349,8 @@ const Fisik = ({
   );
 };
 
-export default Fisik;
+const mapStateToProps = ({ userData }) => ({
+  userData,
+});
+
+export default connect(mapStateToProps)(Fisik);
