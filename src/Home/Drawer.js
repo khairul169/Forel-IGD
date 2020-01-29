@@ -18,6 +18,10 @@ import Collapse from '@material-ui/core/Collapse';
 import HomeIcon from '@material-ui/icons/Home';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import ExpandLess from '@material-ui/icons/ExpandLess';
+import AssignmentInd from '@material-ui/icons/AssignmentInd';
+import NoteAdd from '@material-ui/icons/NoteAdd';
+import PeopleAlt from '@material-ui/icons/PeopleAlt';
+import ExitToApp from '@material-ui/icons/ExitToApp';
 
 // Etc
 import Actions from '../Redux/Actions';
@@ -40,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Drawer = ({ setAuthToken }) => {
+const Drawer = ({ setAuthToken, userData }) => {
   const styles = useStyles();
   const [collapsedMenu, setCollapedMenu] = useState(0);
   const [redirectLogin, setRedirectLogin] = useState(false);
@@ -52,6 +56,13 @@ const Drawer = ({ setAuthToken }) => {
       setCollapedMenu(id);
     }
   };
+
+  let accountType = 0;
+
+  if (userData) {
+    const { type } = userData;
+    accountType = parseInt(type, 10);
+  }
 
   return (
     <MaterialDrawer className={styles.drawer} classes={{ paper: styles.drawerPaper }} open variant="permanent" anchor="left">
@@ -68,26 +79,30 @@ const Drawer = ({ setAuthToken }) => {
 
       <Divider />
       <List subheader={<ListSubheader>Menu</ListSubheader>}>
-        <ListItem button onClick={() => toggleMenu(1)}>
-          <ListItemIcon><HomeIcon /></ListItemIcon>
-          <ListItemText>Pendaftaran</ListItemText>
-          {collapsedMenu === 1 ? <ExpandLess /> : <ExpandMore />}
-        </ListItem>
-        <Collapse in={collapsedMenu === 1}>
-          <List disablePadding>
-            <ListItem dense button component={RouteLink} to="/daftar">
-              <ListItemIcon><div /></ListItemIcon>
-              <ListItemText>Daftar Baru</ListItemText>
-            </ListItem>
-            <ListItem dense button component={RouteLink} to="/pasien-lama">
-              <ListItemIcon><div /></ListItemIcon>
-              <ListItemText>Pasien Lama</ListItemText>
-            </ListItem>
-          </List>
-        </Collapse>
+        {accountType === 0 && (
+        <div>
+          <ListItem button onClick={() => toggleMenu(1)}>
+            <ListItemIcon><NoteAdd /></ListItemIcon>
+            <ListItemText>Pendaftaran</ListItemText>
+            {collapsedMenu === 1 ? <ExpandLess /> : <ExpandMore />}
+          </ListItem>
+          <Collapse in={collapsedMenu === 1}>
+            <List disablePadding>
+              <ListItem dense button component={RouteLink} to="/daftar">
+                <ListItemIcon><div /></ListItemIcon>
+                <ListItemText>Daftar Baru</ListItemText>
+              </ListItem>
+              <ListItem dense button component={RouteLink} to="/pasien-lama">
+                <ListItemIcon><div /></ListItemIcon>
+                <ListItemText>Pasien Lama</ListItemText>
+              </ListItem>
+            </List>
+          </Collapse>
+        </div>
+        )}
 
         <ListItem button onClick={() => toggleMenu(2)}>
-          <ListItemIcon><HomeIcon /></ListItemIcon>
+          <ListItemIcon><PeopleAlt /></ListItemIcon>
           <ListItemText>Pasien</ListItemText>
           {collapsedMenu === 2 ? <ExpandLess /> : <ExpandMore />}
         </ListItem>
@@ -104,27 +119,31 @@ const Drawer = ({ setAuthToken }) => {
           </List>
         </Collapse>
 
-        <ListItem button onClick={() => toggleMenu(3)}>
-          <ListItemIcon><HomeIcon /></ListItemIcon>
-          <ListItemText>Pemeriksaan Dokter</ListItemText>
-          {collapsedMenu === 3 ? <ExpandLess /> : <ExpandMore />}
-        </ListItem>
-        <Collapse in={collapsedMenu === 3}>
-          <List disablePadding>
-            <ListItem dense button component={RouteLink} to="/pengkajian">
-              <ListItemIcon><div /></ListItemIcon>
-              <ListItemText>Pengkajian Medis</ListItemText>
-            </ListItem>
-            <ListItem dense button component={RouteLink} to="/ringkasan-keluar">
-              <ListItemIcon><div /></ListItemIcon>
-              <ListItemText>Ringkasan Pasien</ListItemText>
-            </ListItem>
-            <ListItem dense button component={RouteLink} to="/rtl">
-              <ListItemIcon><div /></ListItemIcon>
-              <ListItemText>Rencana Tindak Lanjut</ListItemText>
-            </ListItem>
-          </List>
-        </Collapse>
+        {accountType === 1 && (
+        <div>
+          <ListItem button onClick={() => toggleMenu(3)}>
+            <ListItemIcon><AssignmentInd /></ListItemIcon>
+            <ListItemText>Pemeriksaan Dokter</ListItemText>
+            {collapsedMenu === 3 ? <ExpandLess /> : <ExpandMore />}
+          </ListItem>
+          <Collapse in={collapsedMenu === 3}>
+            <List disablePadding>
+              <ListItem dense button component={RouteLink} to="/pengkajian">
+                <ListItemIcon><div /></ListItemIcon>
+                <ListItemText>Pengkajian Medis</ListItemText>
+              </ListItem>
+              <ListItem dense button component={RouteLink} to="/ringkasan-keluar">
+                <ListItemIcon><div /></ListItemIcon>
+                <ListItemText>Ringkasan Pasien</ListItemText>
+              </ListItem>
+              <ListItem dense button component={RouteLink} to="/rtl">
+                <ListItemIcon><div /></ListItemIcon>
+                <ListItemText>Rencana Tindak Lanjut</ListItemText>
+              </ListItem>
+            </List>
+          </Collapse>
+        </div>
+        )}
       </List>
 
       <div style={{ flex: 1 }} />
@@ -138,7 +157,7 @@ const Drawer = ({ setAuthToken }) => {
             setRedirectLogin(true);
           }}
         >
-          <ListItemIcon><HomeIcon /></ListItemIcon>
+          <ListItemIcon><ExitToApp /></ListItemIcon>
           <ListItemText>Keluar</ListItemText>
         </ListItem>
       </List>
