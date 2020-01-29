@@ -69,7 +69,7 @@ const pasienBaru = async (data) => {
 
 const getPendaftaranById = async (id) => {
   try {
-    const { result } = await get(`/pendaftaran/id/${id}`);
+    const { result } = await get(`/pendaftaran/${id}`);
     return result;
   } catch (error) {
     return false;
@@ -101,6 +101,23 @@ const setPengkajian = async (id, data) => {
   }
 };
 
+const getRingkasan = async (id) => {
+  try {
+    const { result } = await get(`/ringkasan/${id}`);
+    return result;
+  } catch (error) {
+    return false;
+  }
+};
+
+const setRingkasan = async (id, data) => {
+  try {
+    return await post('/ringkasan', { id, data });
+  } catch (error) {
+    return false;
+  }
+};
+
 export default {
   login,
   register,
@@ -110,4 +127,6 @@ export default {
   findPendaftaran,
   getPengkajian,
   setPengkajian,
+  getRingkasan,
+  setRingkasan,
 };

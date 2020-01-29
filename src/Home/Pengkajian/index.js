@@ -50,6 +50,10 @@ const Pengkajian = ({ authToken, match }) => {
   };
 
   const onSubmit = async () => {
+    if (!pendaftaranId) {
+      return;
+    }
+
     setLoading(true);
     const formData = form.getValues();
     const result = await API.setPengkajian(pendaftaranId, formData);
