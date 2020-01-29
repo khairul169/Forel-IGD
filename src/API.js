@@ -84,6 +84,23 @@ const findPendaftaran = async (query) => {
   }
 };
 
+const getPengkajian = async (id) => {
+  try {
+    const { result } = await get(`/pengkajian/${id}`);
+    return result;
+  } catch (error) {
+    return false;
+  }
+};
+
+const setPengkajian = async (id, data) => {
+  try {
+    return await post('/pengkajian', { id, data });
+  } catch (error) {
+    return false;
+  }
+};
+
 export default {
   login,
   register,
@@ -91,4 +108,6 @@ export default {
   pasienBaru,
   getPendaftaranById,
   findPendaftaran,
+  getPengkajian,
+  setPengkajian,
 };

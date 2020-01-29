@@ -42,26 +42,7 @@ const DaftarBaru = ({ userData, match, authToken }) => {
   const formPasien = useForm({ defaultValues: defPasien });
   const formPj = useForm({ defaultValues: defPj });
 
-  const onLoaded = () => {
-    const loadData = async () => {
-      const { id } = match.params;
-
-      if (id && authToken) {
-        setLoading(true);
-        const data = await API.getPendaftaranById(id);
-        setLoading(false);
-
-        // Set form data
-        formPasien.reset(data.pasien);
-        formPj.reset(data.pj);
-      }
-    };
-    loadData();
-  };
-
-  useEffect(onLoaded, [authToken]);
-
-  const resetForm = () => {
+  const onReset = () => {
     formPasien.reset(defPasien);
     formPj.reset(defPj);
   };
@@ -78,17 +59,38 @@ const DaftarBaru = ({ userData, match, authToken }) => {
     setLoading(false);
 
     if (!result || result.error) {
-      if (typeof result.error === 'string') setMessage(result.error);
+      if (typeof result.error === 'string') {
+        setMessage(result.error);
+      } else {
+        setMessage('Gagal menyimpan data.');
+      }
     } else {
       setMessage('Data telah ditambahkan.');
-      resetForm();
+      onReset();
     }
   };
 
+  const onLoaded = () => {
+    (async () => {
+      const { id } = match.params;
+
+      if (id && authToken) {
+        setLoading(true);
+        const data = await API.getPendaftaranById(id);
+        setLoading(false);
+
+        // Set form data
+        formPasien.reset(data.pasien);
+        formPj.reset(data.pj);
+      }
+    })();
+  };
+
+  // Effects
+  useEffect(onLoaded, [authToken]);
+
   return (
     <Paper className={styles.root} square>
-      <Dialog title="Konfirmasi" content={message} onClose={() => setMessage(null)} />
-
       <Typography variant="h6" gutterBottom>Identifikasi Pasien</Typography>
 
       <DataPasien styles={styles} form={formPasien} />
@@ -118,8 +120,8 @@ const DaftarBaru = ({ userData, match, authToken }) => {
                 variant="contained"
                 color="primary"
                 size="large"
-                disabled={loading}
                 onClick={onSubmit}
+                disabled={loading}
               >
               Simpan
               </Button>
@@ -129,7 +131,8 @@ const DaftarBaru = ({ userData, match, authToken }) => {
                 fullWidth
                 variant="contained"
                 size="large"
-                onClick={resetForm}
+                onClick={onReset}
+                disabled={loading}
               >
                 Bersihkan
               </Button>
@@ -137,6 +140,8 @@ const DaftarBaru = ({ userData, match, authToken }) => {
           </Grid>
         </Grid>
       </Grid>
+
+      <Dialog title="Konfirmasi" content={message} onClose={() => setMessage(null)} />
     </Paper>
   );
 };

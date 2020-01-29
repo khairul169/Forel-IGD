@@ -49,9 +49,15 @@ export const defaultValues = {
   permasalahan: '',
   targetTerukur: '',
   icd10: '',
+  terapiTindakan: '',
+  terapiMedika: '',
+  rencanaOperasi: '',
+  rencanaKonsultasi: '',
 };
 
-const Fisik = ({ styles, form }) => {
+const Fisik = ({
+  styles, form, onSubmit, onReset, loading,
+}) => {
   const polaNafas = ['Normal', 'Dispneu', 'Kusmaull', 'Cheyne Stokes', 'Stridor'];
   const kepala = ['Simetris', 'Asimetris', { input: 'kepalaLain', label: 'Lain-lain' }];
   const pupil = [
@@ -284,6 +290,8 @@ const Fisik = ({ styles, form }) => {
                   variant="contained"
                   color="primary"
                   size="large"
+                  onClick={onSubmit}
+                  disabled={loading}
                 >
               Simpan
                 </Button>
@@ -293,6 +301,8 @@ const Fisik = ({ styles, form }) => {
                   fullWidth
                   variant="contained"
                   size="large"
+                  onClick={onReset}
+                  disabled={loading}
                 >
               Bersihkan
                 </Button>
@@ -308,7 +318,7 @@ const Fisik = ({ styles, form }) => {
       </Typography>
 
       <Grid container spacing={3} style={{ marginTop: 8 }}>
-        <Grid item xs={7} container spacing={2}>
+        <Grid item xs={12} lg={7} container spacing={2}>
           <Grid item xs={8}>
             <UserInput title="Tindakan" alignTop>
               <FormText name="terapiTindakan" multiline rows={4} form={form} />
@@ -324,7 +334,7 @@ const Fisik = ({ styles, form }) => {
           </Grid>
         </Grid>
 
-        <Grid item xs={5}>
+        <Grid item xs={12} lg={5}>
           <UserInput title="Rencana Operasi" alignTop>
             <FormText name="rencanaOperasi" multiline rows={4} form={form} />
           </UserInput>

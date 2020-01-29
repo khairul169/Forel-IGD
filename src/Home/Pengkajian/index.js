@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
@@ -9,10 +10,14 @@ import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
 
 // Section
+import CariPasien from '../CariPasien';
 import Anamnesa, { defaultValues as defAnamnesa } from './Anamnesa';
 import Medis, { defaultValues as defMedis } from './Medis';
 import Nyeri, { defaultValues as defNyeri } from './Nyeri';
 import Fisik, { defaultValues as defFisik } from './Fisik';
+
+import Dialog from '../../Components/Dialog';
+import API from '../../API';
 
 const useStyles = makeStyles({
   root: {
@@ -25,17 +30,67 @@ const useStyles = makeStyles({
   },
 });
 
-const Pengkajian = () => {
-  const styles = useStyles();
+const defaultValues = {
+  ...defAnamnesa,
+  ...defMedis,
+  ...defNyeri,
+  ...defFisik,
+};
 
-  const form = useForm({
-    defaultValues: {
-      ...defAnamnesa,
-      ...defMedis,
-      ...defNyeri,
-      ...defFisik,
-    },
-  });
+const Pengkajian = ({ authToken, match }) => {
+  const styles = useStyles();
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState();
+  const [pendaftaranId, setPendaftaranId] = useState();
+
+  const form = useForm({ defaultValues });
+
+  const onReset = () => {
+    form.reset(defaultValues);
+  };
+
+  const onSubmit = async () => {
+    setLoading(true);
+    const formData = form.getValues();
+    const result = await API.setPengkajian(pendaftaranId, formData);
+    setLoading(false);
+
+    if (!result || result.error) {
+      if (typeof result.error === 'string') {
+        setMessage(result.error);
+      } else {
+        console.log(result);
+        setMessage('Gagal menyimpan data.');
+      }
+    } else {
+      setMessage('Data telah disimpan.');
+    }
+  };
+
+  const onLoaded = () => {
+    (async () => {
+      const { id } = match.params;
+      setPendaftaranId(id);
+
+      if (id && authToken) {
+        setLoading(true);
+        const data = await API.getPengkajian(id);
+        setLoading(false);
+
+        if (data) {
+          // Set form data
+          form.reset(data);
+        }
+      }
+    })();
+  };
+
+  // Effects
+  useEffect(onLoaded, [authToken]);
+
+  if (!match.params.id) {
+    return <CariPasien next="pengkajian" />;
+  }
 
   return (
     <Paper className={styles.root} square>
@@ -52,10 +107,16 @@ const Pengkajian = () => {
       </Grid>
 
       <Nyeri styles={styles} form={form} />
+      <Fisik styles={styles} form={form} onSubmit={onSubmit} onReset={onReset} loading={loading} />
 
-      <Fisik styles={styles} form={form} />
+      <Dialog title="Konfirmasi" content={message} onClose={() => setMessage(null)} />
     </Paper>
   );
 };
 
-export default Pengkajian;
+const mapStateToProps = ({ authToken }) => ({
+  authToken,
+});
+
+
+export default connect(mapStateToProps)(Pengkajian);

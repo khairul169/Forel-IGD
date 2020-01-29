@@ -46,7 +46,7 @@ const Medis = ({ styles, form }) => {
             <FormText name="movement" form={form} label="Movement" />
           </Grid>
           <Grid item xs={4}>
-            <FormText name="verbal" form={form} label="Eye" />
+            <FormText name="verbal" form={form} label="Verbal" />
           </Grid>
         </Grid>
       </UserInput>

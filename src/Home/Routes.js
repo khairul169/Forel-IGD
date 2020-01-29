@@ -50,6 +50,12 @@ const routeList = [
     title: 'Pemeriksaan Dokter',
     path: '/pengkajian',
     content: Pengkajian,
+    exact: true,
+  },
+  {
+    title: 'Pemeriksaan Dokter',
+    path: '/pengkajian/:id',
+    content: Pengkajian,
   },
 ];
 

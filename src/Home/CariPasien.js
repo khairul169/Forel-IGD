@@ -50,7 +50,7 @@ const inputDefault = {
   ttl: '',
 };
 
-const CariPasien = ({ jenis }) => {
+const CariPasien = ({ jenis, next }) => {
   const styles = useStyles();
 
   // States
@@ -132,7 +132,7 @@ const CariPasien = ({ jenis }) => {
       )}
 
       {items && items.map((item, index) => (
-        <Link key={index} to={`/daftar/${item._id}`} style={{ textDecoration: 'none' }}>
+        <Link key={index} to={`/${next}/${item._id}`} style={{ textDecoration: 'none' }}>
           <Grid container spacing={2} component={Paper} key={index} className={styles.item}>
             <Grid item xs={1}>
               <Typography variant="caption" gutterBottom>No. RM</Typography>
