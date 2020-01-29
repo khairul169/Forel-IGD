@@ -118,6 +118,23 @@ const setRingkasan = async (id, data) => {
   }
 };
 
+const getTindakLanjut = async (id) => {
+  try {
+    const { result } = await get(`/rtl/${id}`);
+    return result;
+  } catch (error) {
+    return false;
+  }
+};
+
+const setTindakLanjut = async (id, data) => {
+  try {
+    return await post('/rtl', { id, data });
+  } catch (error) {
+    return false;
+  }
+};
+
 export default {
   login,
   register,
@@ -129,4 +146,6 @@ export default {
   setPengkajian,
   getRingkasan,
   setRingkasan,
+  getTindakLanjut,
+  setTindakLanjut,
 };

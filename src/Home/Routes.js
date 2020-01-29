@@ -6,6 +6,7 @@ import PasienPonek from './PasienPonek';
 import PasienNonPonek from './PasienNonPonek';
 import Pengkajian from './Pengkajian';
 import RingkasanKeluar from './RingkasanKeluar';
+import TindakLanjut from './TindakLanjut';
 
 const routeList = [
   {
@@ -68,6 +69,17 @@ const routeList = [
     title: 'Pemeriksaan Dokter',
     path: '/ringkasan-keluar/:id',
     content: RingkasanKeluar,
+  },
+  {
+    title: 'Pemeriksaan Dokter',
+    path: '/rtl',
+    content: TindakLanjut,
+    exact: true,
+  },
+  {
+    title: 'Pemeriksaan Dokter',
+    path: '/rtl/:id',
+    content: TindakLanjut,
   },
 ];
 
