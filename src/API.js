@@ -1,7 +1,7 @@
 import reduxStore from './Redux/Store';
 
 // const baseUrl = 'http://localhost:5000';
-const baseUrl = 'http://khairul.my.id/forel_igd';
+const baseUrl = 'https://khairul.my.id/forel_igd';
 
 const get = async (endpoint) => {
   try {
