@@ -62,21 +62,21 @@ const Fisik = ({ styles, form }) => {
   const tonsis = ['Normal', 'Hiperemesis', 'Membesar'];
   const telinga = ['Normal', { input: 'telingaSekret', label: 'Sekret' }];
   const leher = ['Normal', 'Massa', 'Kelenjar', 'Kaku Kuduk'];
-  const venaJugularis = ['Normal'];
-  const gerakanDada = ['Simetris'];
-  const inspeksiDada = ['Datar'];
-  const retraksiDada = ['Sipra Clavicula'];
-  const auskultasiDada = ['Normal'];
-  const ictusCordis = ['Terlihat'];
-  const palpasiDada = ['Supel'];
-  const fremitusTaktil = ['Simetris'];
-  const heparLien = ['Teraba'];
-  const batasJantung = ['Membesar'];
-  const cor = ['Bunyi Jantung I/II'];
-  const pulmo = ['Vesikuler'];
-  const akral = ['Hangat'];
-  const crt = ['< 2 Detik'];
-  const kuatNadi = ['Kuat'];
+  const venaJugularis = ['Normal', 'Meningkat'];
+  const gerakanDada = ['Simetris', 'Asimetris'];
+  const inspeksiDada = ['Datar', 'Cekung', 'Cembung', 'Lain-lain'];
+  const retraksiDada = ['Sipra Clavicula', 'Sterna', 'Costae'];
+  const auskultasiDada = ['Normal', 'Meningkat', 'Melemah', 'Tidak Ada'];
+  const ictusCordis = ['Terlihat', 'Tidak Terlihat'];
+  const palpasiDada = ['Supel', 'Distensi', 'Nyeri Tekan/Lepas', 'Turgor', 'Asites'];
+  const fremitusTaktil = ['Simetris', 'Tidak Simetris'];
+  const heparLien = ['Teraba', 'Tidak Teraba'];
+  const batasJantung = ['Membesar', 'Tidak Membesar'];
+  const cor = ['Bunyi Jantung I/II: Reguler/Irreguler', 'Murmur', 'Gallop'];
+  const pulmo = ['Vesikuler', 'Whezzing', 'Bronchial', 'Bronchovesikuler', 'Slem', 'Ronchi'];
+  const akral = ['Hangat', 'Dingin'];
+  const crt = ['< 2 Detik', '>= 2 detik'];
+  const kuatNadi = ['Kuat', 'Lemah', 'Teratur', 'Tidak Teratur'];
 
   return (
     <Panel title="IV. Pemeriksaan Fisik" className={styles.section}>

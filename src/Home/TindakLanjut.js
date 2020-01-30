@@ -16,6 +16,7 @@ import Dialog from '../Components/Dialog';
 import Panel from '../Components/Panel';
 import UserInput from '../Components/UserInput';
 import FormText from '../Components/FormText';
+import FormDatePicker from '../Components/FormDatePicker';
 import FormOption from '../Components/FormOption';
 import FormSelect from '../Components/FormSelect';
 import API from '../API';
@@ -32,8 +33,7 @@ const useStyles = makeStyles({
 });
 
 const defaultValues = {
-  tanggal: '',
-  jam: '',
+  waktu: Date.now,
   tlp: '',
   pindah: '0',
   dirujukKe: '',
@@ -51,8 +51,8 @@ const defaultValues = {
 };
 
 const Section = ({ styles, form, dataPasien }) => {
-  const pindah = ['Ruang Biasa'];
-  const alasanRujuk = ['Indikasi Medis'];
+  const pindah = ['Ruang Biasa', 'Kamar Operasi', 'Kamar Bersalin', 'HD', 'Cath Lab', 'Isolasi', 'ICU/HCU/PICU/NICU/Perina'];
+  const alasanRujuk = ['Indikasi Medis', 'Kamar Penuh', 'Atas Permintaan Sendiri'];
   const rujukKe = ['Ambulans', 'Kendaraan Pribadi', { input: 'rujukKeLain', label: 'Lain-lain' }];
   const pulang = [
     'Indikasi Medis',
@@ -91,9 +91,8 @@ const Section = ({ styles, form, dataPasien }) => {
 
       <Grid container spacing={2}>
         <Grid item xs={6}>
-          <UserInput title="Keluar dari IGD" alignTop>
-            <UserInput title="Tanggal" alignTop><FormText name="tanggal" form={form} /></UserInput>
-            <UserInput title="Jam" alignTop><FormText name="jam" form={form} suffix="WIB" /></UserInput>
+          <UserInput title="Keluar dari IGD">
+            <FormDatePicker label="Tanggal/Jam" name="waktu" form={form} />
           </UserInput>
         </Grid>
         <Grid item xs={6}>
