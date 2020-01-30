@@ -15,6 +15,7 @@ import Anamnesa, { defaultValues as defAnamnesa } from './Anamnesa';
 import Medis, { defaultValues as defMedis } from './Medis';
 import Nyeri, { defaultValues as defNyeri } from './Nyeri';
 import Fisik, { defaultValues as defFisik } from './Fisik';
+import Terapi, { defaultValues as defTerapi } from './Terapi';
 
 import Dialog from '../../Components/Dialog';
 import API from '../../API';
@@ -35,6 +36,7 @@ const defaultValues = {
   ...defMedis,
   ...defNyeri,
   ...defFisik,
+  ...defTerapi,
 };
 
 const Pengkajian = ({ authToken, match }) => {
@@ -110,7 +112,8 @@ const Pengkajian = ({ authToken, match }) => {
       </Grid>
 
       <Nyeri styles={styles} form={form} />
-      <Fisik styles={styles} form={form} onSubmit={onSubmit} onReset={onReset} loading={loading} />
+      <Fisik styles={styles} form={form} />
+      <Terapi styles={styles} form={form} onSubmit={onSubmit} onReset={onReset} loading={loading} />
 
       <Dialog title="Konfirmasi" content={message} onClose={() => setMessage(null)} />
     </Paper>
