@@ -6,10 +6,11 @@ import Typography from '@material-ui/core/Typography';
 import Panel from '../../Components/Panel';
 import UserInput from '../../Components/UserInput';
 import FormText from '../../Components/FormText';
+import FormDatePicker from '../../Components/FormDatePicker';
 import FormOption from '../../Components/FormOption';
 
 export const defaultValues = {
-  waktu: '',
+  waktu: Date.now,
   auto: '',
   alloo: '',
   riwayatPenyakit: '',
@@ -24,7 +25,7 @@ const Anamnesa = ({ styles, form }) => {
   return (
     <Panel title="I. Anamnesa" className={styles.section}>
       <UserInput title="Waktu Pengkajian">
-        <FormText name="waktu" form={form} />
+        <FormDatePicker name="waktu" form={form} />
       </UserInput>
 
       <UserInput title="Anamnesa Auto">

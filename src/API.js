@@ -68,6 +68,15 @@ const pasienBaru = async (data) => {
   }
 };
 
+const getJumlahPasien = async () => {
+  try {
+    const { result } = await get('/jumlah');
+    return result;
+  } catch (error) {
+    return false;
+  }
+};
+
 const getPendaftaranById = async (id) => {
   try {
     const { result } = await get(`/pendaftaran/${id}`);
@@ -141,6 +150,7 @@ export default {
   register,
   getUser,
   pasienBaru,
+  getJumlahPasien,
   getPendaftaranById,
   findPendaftaran,
   getPengkajian,

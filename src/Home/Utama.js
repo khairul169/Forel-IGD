@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import moment from 'moment';
 import 'moment/locale/id';
@@ -8,6 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
+import API from '../API';
 
 const useStyles = makeStyles({
   title: {
@@ -43,18 +45,26 @@ const useStyles = makeStyles({
   },
 });
 
-const Utama = () => {
+const Utama = ({ authToken }) => {
   const styles = useStyles();
   const [date, setDate] = useState();
+  const [jumlah, setJumlah] = useState();
 
   const onLoaded = () => {
+    (async () => {
+      if (authToken) {
+        const data = await API.getJumlahPasien();
+        setJumlah(data);
+      }
+    })();
+
     setDate(moment());
     setInterval(() => {
       setDate(moment());
     }, 1000);
   };
 
-  useEffect(onLoaded, []);
+  useEffect(onLoaded, [authToken]);
 
   return (
     <div>
@@ -65,14 +75,14 @@ const Utama = () => {
       <Grid container spacing={2}>
         <Grid item xs={7}>
           <Paper className={styles.card}>
-            <Typography variant="h3">90</Typography>
+            <Typography variant="h3">{jumlah ? jumlah.total : '0'}</Typography>
             <Typography className={styles.cardTitle}>Pasien Hari Ini</Typography>
           </Paper>
 
           <Grid container spacing={2}>
             <Grid item xs>
               <Paper className={styles.card}>
-                <Typography variant="h3">50</Typography>
+                <Typography variant="h3">{jumlah ? jumlah.ponek : '0'}</Typography>
                 <Typography className={styles.cardTitle}>Pasien Ponek</Typography>
               </Paper>
               <Button className={styles.regBtn} color="primary" fullWidth variant="contained" size="large">
@@ -81,7 +91,7 @@ const Utama = () => {
             </Grid>
             <Grid item xs>
               <Paper className={styles.card}>
-                <Typography variant="h3">40</Typography>
+                <Typography variant="h3">{jumlah ? jumlah.nonPonek : '0'}</Typography>
                 <Typography className={styles.cardTitle}>Pasien Non Ponek</Typography>
               </Paper>
               <Button className={styles.regBtn} color="primary" fullWidth variant="contained" size="large">
@@ -108,4 +118,8 @@ const Utama = () => {
   );
 };
 
-export default Utama;
+const mapStateToProps = ({ authToken }) => ({
+  authToken,
+});
+
+export default connect(mapStateToProps)(Utama);
