@@ -1,12 +1,14 @@
 import reduxStore from './Redux/Store';
 
-// const baseUrl = 'http://localhost:5000';
-const baseUrl = 'https://khairul.my.id/forel_igd';
+const API_DEVELOPMENT = 'http://localhost:5000';
+const API_PRODUCTIONS = 'https://khairul.my.id/forel_igd';
+
+const BASE_URL = process.env.NODE_ENV !== 'production' ? API_DEVELOPMENT : API_PRODUCTIONS;
 
 const get = async (endpoint) => {
   try {
     const state = reduxStore.getState();
-    const response = await fetch(baseUrl + endpoint, {
+    const response = await fetch(BASE_URL + endpoint, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${state.authToken}`,
@@ -22,7 +24,7 @@ const get = async (endpoint) => {
 const post = async (endpoint, data) => {
   try {
     const state = reduxStore.getState();
-    const response = await fetch(baseUrl + endpoint, {
+    const response = await fetch(BASE_URL + endpoint, {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${state.authToken}`,

@@ -1,9 +1,11 @@
 import React from 'react';
 
 // Components
+import Grid from '@material-ui/core/Grid';
 import Panel from '../../Components/Panel';
 import UserInput from '../../Components/UserInput';
 import FormText from '../../Components/FormText';
+import FormDatePicker from '../../Components/FormDatePicker';
 import FormOption from '../../Components/FormOption';
 
 export const defaultValues = {
@@ -11,7 +13,8 @@ export const defaultValues = {
   nama: '',
   nik: '',
   kelamin: '0',
-  ttl: '',
+  tempatLahir: '',
+  tglLahir: Date.now,
   kebangsaan: '0',
   alamat: '',
   telp: '',
@@ -20,6 +23,8 @@ export const defaultValues = {
   pekerjaan: '0',
   pendidikan: '0',
   jenis: '0',
+  pembayaran: '0',
+  asuransi: '',
 };
 
 const DataPasien = ({ styles, form }) => {
@@ -30,6 +35,7 @@ const DataPasien = ({ styles, form }) => {
   const pekerjaan = ['Swasta', 'PNS', 'Petani', 'Lain-lain'];
   const pendidikan = ['Tidak Sekolah', 'SD', 'SMP', 'SMA', 'Perguruan Tinggi'];
   const jenisPasien = ['Ponek', 'Non Ponek'];
+  const pembayaran = ['Umum', 'BPJS', { input: 'asuransi', label: 'Asuransi' }];
 
   return (
     <Panel title="Data Pasien" className={styles.section}>
@@ -50,14 +56,21 @@ const DataPasien = ({ styles, form }) => {
       </UserInput>
 
       <UserInput title="Tempat/Tanggal Lahir">
-        <FormText name="ttl" form={form} />
+        <Grid container spacing={2}>
+          <Grid item xs>
+            <FormText name="tempatLahir" form={form} />
+          </Grid>
+          <Grid item xs>
+            <FormDatePicker name="tglLahir" form={form} dateOnly />
+          </Grid>
+        </Grid>
       </UserInput>
 
       <UserInput title="Kebangsaan">
         <FormOption name="kebangsaan" form={form} items={kebangsaan} />
       </UserInput>
 
-      <UserInput title="Alamat">
+      <UserInput title="Alamat" alignTop>
         <FormText name="alamat" form={form} multiline />
       </UserInput>
 
@@ -65,7 +78,7 @@ const DataPasien = ({ styles, form }) => {
         <FormText name="telp" form={form} />
       </UserInput>
 
-      <UserInput title="Agama">
+      <UserInput title="Agama" alignTop>
         <FormOption name="agama" form={form} items={agama} />
       </UserInput>
 
@@ -77,12 +90,16 @@ const DataPasien = ({ styles, form }) => {
         <FormOption name="pekerjaan" form={form} items={pekerjaan} />
       </UserInput>
 
-      <UserInput title="Pendidikan">
+      <UserInput title="Pendidikan" alignTop>
         <FormOption name="pendidikan" form={form} items={pendidikan} />
       </UserInput>
 
       <UserInput title="Jenis Pasien">
         <FormOption name="jenis" form={form} items={jenisPasien} />
+      </UserInput>
+
+      <UserInput title="Pembayaran" alignTop>
+        <FormOption name="pembayaran" form={form} items={pembayaran} cols={2} />
       </UserInput>
     </Panel>
   );

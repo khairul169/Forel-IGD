@@ -136,15 +136,15 @@ const CariPasien = ({ jenis, next }) => {
           <Grid container spacing={2} component={Paper} key={index} className={styles.item}>
             <Grid item xs={1}>
               <Typography variant="caption" gutterBottom>No. RM</Typography>
-              <Typography>{item.pasien.rm}</Typography>
+              <Typography>{item.rm}</Typography>
             </Grid>
             <Grid item xs>
               <Typography variant="caption" gutterBottom>Nama Pasien</Typography>
-              <Typography>{item.pasien.nama}</Typography>
+              <Typography>{item.nama}</Typography>
             </Grid>
             <Grid item xs>
               <Typography variant="caption" gutterBottom>Tempat/Tanggal Lahir</Typography>
-              <Typography>{item.pasien.ttl || '-'}</Typography>
+              <Typography>{item.tempatLahir ? `${item.tempatLahir}, ${moment(item.tglLahir).format('Do MMMM YYYY')}` : '-'}</Typography>
             </Grid>
             <Grid item xs>
               <Typography variant="caption" gutterBottom>Jenis Pasien</Typography>

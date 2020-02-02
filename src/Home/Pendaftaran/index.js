@@ -34,28 +34,27 @@ const useStyles = makeStyles({
   },
 });
 
+const defaultValues = {
+  ...defPasien,
+  ...defPj,
+};
+
 const DaftarBaru = ({ userData, match, authToken }) => {
   const styles = useStyles();
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState();
 
-  const formPasien = useForm({ defaultValues: defPasien });
-  const formPj = useForm({ defaultValues: defPj });
+  const form = useForm({ defaultValues });
 
   const onReset = () => {
-    formPasien.reset(defPasien);
-    formPj.reset(defPj);
+    form.reset(defaultValues);
   };
 
   const onSubmit = async () => {
     setLoading(true);
 
-    const formData = {
-      pasien: formPasien.getValues(),
-      pj: formPj.getValues(),
-    };
-
-    const result = await API.pasienBaru(formData);
+    const data = form.getValues();
+    const result = await API.pasienBaru(data);
     setLoading(false);
 
     if (!result || result.error) {
@@ -80,8 +79,7 @@ const DaftarBaru = ({ userData, match, authToken }) => {
         setLoading(false);
 
         // Set form data
-        formPasien.reset(data.pasien);
-        formPj.reset(data.pj);
+        form.reset(data);
       }
     })();
   };
@@ -93,8 +91,8 @@ const DaftarBaru = ({ userData, match, authToken }) => {
     <Paper className={styles.root} square>
       <Typography variant="h6" gutterBottom>Identifikasi Pasien</Typography>
 
-      <DataPasien styles={styles} form={formPasien} />
-      <PenanggungJawab styles={styles} form={formPj} />
+      <DataPasien styles={styles} form={form} />
+      <PenanggungJawab styles={styles} form={form} />
 
       <div className={styles.spacing} />
 

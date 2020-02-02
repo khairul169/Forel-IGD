@@ -7,14 +7,14 @@ import FormText from '../../Components/FormText';
 import FormOption from '../../Components/FormOption';
 
 export const defaultValues = {
-  nama: '',
-  nik: '',
-  kelamin: '0',
+  namaPj: '',
+  nikPj: '',
+  kelaminPj: '0',
   hubungan: '',
-  alamat: '',
-  telp: '',
-  pekerjaan: '0',
-  pendidikan: '0',
+  alamatPj: '',
+  telpPj: '',
+  pekerjaanPj: '0',
+  pendidikanPj: '0',
   wali: '',
   telpWali: '',
 };
@@ -27,35 +27,35 @@ const PenanggungJawab = ({ styles, form }) => {
   return (
     <Panel title="Data Penanggung Jawab" className={styles.section}>
       <UserInput title="Nama">
-        <FormText name="nama" form={form} />
+        <FormText name="namaPj" form={form} />
       </UserInput>
 
       <UserInput title="NIK/Nomor Passport">
-        <FormText name="nik" form={form} />
+        <FormText name="nikPj" form={form} />
       </UserInput>
 
       <UserInput title="Jenis Kelamin">
-        <FormOption name="kelamin" form={form} items={jenisKelamin} />
+        <FormOption name="kelaminPj" form={form} items={jenisKelamin} />
       </UserInput>
 
       <UserInput title="Hubungan">
         <FormText name="hubungan" form={form} />
       </UserInput>
 
-      <UserInput title="Alamat">
-        <FormText name="alamat" form={form} multiline />
+      <UserInput title="Alamat" alignTop>
+        <FormText name="alamatPj" form={form} multiline />
       </UserInput>
 
       <UserInput title="Telp/HP">
-        <FormText name="telp" form={form} />
+        <FormText name="telpPj" form={form} />
       </UserInput>
 
       <UserInput title="Pekerjaan">
-        <FormOption name="pekerjaan" form={form} items={pekerjaan} />
+        <FormOption name="pekerjaanPj" form={form} items={pekerjaan} />
       </UserInput>
 
-      <UserInput title="Pendidikan">
-        <FormOption name="pendidikan" form={form} items={pendidikan} />
+      <UserInput title="Pendidikan" alignTop>
+        <FormOption name="pendidikanPj" form={form} items={pendidikan} />
       </UserInput>
 
       <UserInput title="Nama Suami/Istri/Ayah/Ibu">
