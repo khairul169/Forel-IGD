@@ -33,8 +33,8 @@ const useStyles = makeStyles({
 });
 
 const defaultValues = {
-  waktu: Date.now,
-  tlp: '',
+  waktuKeluar: Date.now,
+  tindakLanjut: '',
   pindah: '0',
   dirujukKe: '',
   alasanRujuk: '0',

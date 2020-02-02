@@ -132,10 +132,6 @@ const Drawer = ({ setAuthToken, userData }) => {
                 <ListItemIcon><div /></ListItemIcon>
                 <ListItemText>Pengkajian Medis</ListItemText>
               </ListItem>
-              <ListItem dense button component={RouteLink} to="/rtl">
-                <ListItemIcon><div /></ListItemIcon>
-                <ListItemText>Rencana Tindak Lanjut</ListItemText>
-              </ListItem>
             </List>
           </Collapse>
         </div>
