@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import moment from 'moment';
 import 'moment/locale/id';
@@ -45,7 +46,7 @@ const useStyles = makeStyles({
   },
 });
 
-const Utama = ({ authToken }) => {
+const Utama = ({ authToken, userData }) => {
   const styles = useStyles();
   const [date, setDate] = useState();
   const [jumlah, setJumlah] = useState();
@@ -85,18 +86,38 @@ const Utama = ({ authToken }) => {
                 <Typography variant="h3">{jumlah ? jumlah.ponek : '0'}</Typography>
                 <Typography className={styles.cardTitle}>Pasien Ponek</Typography>
               </Paper>
-              <Button className={styles.regBtn} color="primary" fullWidth variant="contained" size="large">
+              {userData && userData.type === '0' && (
+              <Button
+                className={styles.regBtn}
+                color="primary"
+                fullWidth
+                variant="contained"
+                size="large"
+                component={Link}
+                to="/daftar"
+              >
                 Daftar Baru
               </Button>
+              )}
             </Grid>
             <Grid item xs>
               <Paper className={styles.card}>
                 <Typography variant="h3">{jumlah ? jumlah.nonPonek : '0'}</Typography>
                 <Typography className={styles.cardTitle}>Pasien Non Ponek</Typography>
               </Paper>
-              <Button className={styles.regBtn} color="primary" fullWidth variant="contained" size="large">
+              {userData && userData.type === '0' && (
+              <Button
+                className={styles.regBtn}
+                color="primary"
+                fullWidth
+                variant="contained"
+                size="large"
+                component={Link}
+                to="/pasien-lama"
+              >
                 Pasien Lama
               </Button>
+              )}
             </Grid>
           </Grid>
         </Grid>
@@ -118,8 +139,9 @@ const Utama = ({ authToken }) => {
   );
 };
 
-const mapStateToProps = ({ authToken }) => ({
+const mapStateToProps = ({ authToken, userData }) => ({
   authToken,
+  userData,
 });
 
 export default connect(mapStateToProps)(Utama);
