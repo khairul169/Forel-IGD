@@ -6,6 +6,7 @@ import Paper from '@material-ui/core/Paper';
 import { Switch, Route } from 'react-router-dom';
 import Main from './Main';
 import Masuk from './Masuk';
+import LupaPin from './LupaPin';
 import Daftar from './Daftar';
 import stethoscope from '../Images/stethoscope.jpg';
 
@@ -59,6 +60,7 @@ const Login = () => {
             <Masuk tipe="dokter" />
           </Route>
           <Route path="/login/daftar" component={Daftar} />
+          <Route path="/login/lupa" component={LupaPin} />
           <Route component={Main} />
         </Switch>
       </Grid>

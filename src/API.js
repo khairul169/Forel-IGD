@@ -57,6 +57,33 @@ const register = async (data) => {
   }
 };
 
+const lupaPin = async (userId) => {
+  try {
+    const { result } = await post('/lupa', { userId });
+    return result;
+  } catch (error) {
+    return false;
+  }
+};
+
+const validateLupaPin = async (id, secret) => {
+  try {
+    const { result } = await post('/lupa/validate', { id, secret });
+    return result;
+  } catch (error) {
+    return false;
+  }
+};
+
+const resetPin = async (id, secret, pin) => {
+  try {
+    const { result } = await post('/lupa/reset', { id, secret, pin });
+    return result;
+  } catch (error) {
+    return false;
+  }
+};
+
 const getUser = async () => {
   const user = await get('/user');
   return user;
@@ -150,6 +177,9 @@ const setTindakLanjut = async (id, data) => {
 export default {
   login,
   register,
+  lupaPin,
+  validateLupaPin,
+  resetPin,
   getUser,
   pasienBaru,
   getJumlahPasien,
