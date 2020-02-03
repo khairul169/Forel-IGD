@@ -17,6 +17,7 @@ export const defaultValues = {
   icd10: '',
   terapiTindakan: '',
   terapiMedika: '',
+  icd9: '',
   rencanaOperasi: '',
   rencanaKonsultasi: '',
 };
@@ -97,7 +98,7 @@ const Terapi = ({
         </Grid>
         <Grid item xs={4}>
           <UserInput title="Kode ICD 9">
-            <FormText name="terapiMedika" form={form} />
+            <FormText name="icd9" form={form} />
           </UserInput>
         </Grid>
       </Grid>

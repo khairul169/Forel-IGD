@@ -75,7 +75,7 @@ const Fisik = ({ styles, form }) => {
   const cor = ['Bunyi Jantung I/II: Reguler/Irreguler', 'Murmur', 'Gallop'];
   const pulmo = ['Vesikuler', 'Whezzing', 'Bronchial', 'Bronchovesikuler', 'Slem', 'Ronchi'];
   const akral = ['Hangat', 'Dingin'];
-  const crt = ['< 2 Detik', '>= 2 detik'];
+  const crt = ['≤ 2 Detik', '≥ 2 detik'];
   const kuatNadi = ['Kuat', 'Lemah', 'Teratur', 'Tidak Teratur'];
 
   return (

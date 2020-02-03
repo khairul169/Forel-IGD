@@ -48,12 +48,12 @@ const TindakLanjut = ({ styles, form }) => {
       <Grid container spacing={2}>
         <Grid item xs={6}>
           <UserInput title="Keluar dari IGD">
-            <FormDatePicker label="Tanggal/Jam" name="waktu" form={form} />
+            <FormDatePicker label="Tanggal/Jam" name="waktuKeluar" form={form} />
           </UserInput>
         </Grid>
         <Grid item xs={6}>
           <UserInput title="Dengan tindak lanjut pelayanan">
-            <FormText name="tlp" form={form} />
+            <FormText name="tindakLanjut" form={form} />
           </UserInput>
         </Grid>
       </Grid>
